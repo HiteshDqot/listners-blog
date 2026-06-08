@@ -33,7 +33,7 @@ $Siteurl = "https://listenersconnect.com";
 			<!-- Logo (Far Left) -->
 			<div class="site-logo">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/listeners-logo.webp" alt="Listeners Logo">
+					<img src="<?php echo listeners_blog_get_logo_url(); ?>" alt="<?php bloginfo( 'name' ); ?>">
 				</a>
 			</div>
 
@@ -74,7 +74,7 @@ $Siteurl = "https://listenersconnect.com";
 			<div class="drawer-header">
 				<div class="drawer-logo">
 					<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/listeners-logo.webp" alt="Listeners Logo">
+						<img src="<?php echo listeners_blog_get_logo_url(); ?>" alt="<?php bloginfo( 'name' ); ?>">
 					</a>
 				</div>
 				<div class="drawer-header-actions">

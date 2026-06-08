@@ -211,3 +211,30 @@ add_filter( 'comment_form_default_fields', function( $fields ) {
 	return $fields;
 } );
 
+/**
+ * Retrieve dynamic site logo URL with fallback to template asset.
+ */
+function listeners_blog_get_logo_url() {
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	if ( $custom_logo_id ) {
+		$logo_image = wp_get_attachment_image_src( $custom_logo_id, 'full' );
+		if ( $logo_image ) {
+			return esc_url( $logo_image[0] );
+		}
+	}
+	return esc_url( get_template_directory_uri() . '/assets/listeners-logo.webp' );
+}
+
+/**
+ * Provide a fallback site icon (favicon) URL if not set.
+ */
+add_filter( 'get_site_icon_url', 'listeners_blog_site_icon_fallback', 10, 3 );
+function listeners_blog_site_icon_fallback( $url, $size, $blog_id ) {
+	if ( empty( $url ) ) {
+		return esc_url( get_template_directory_uri() . '/assets/favicon.ico' );
+	}
+	return $url;
+}
+
+
+
