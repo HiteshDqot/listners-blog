@@ -111,10 +111,10 @@ $siteUrl = "https://listenersconnect.com";
 					<h4 class="footer-title"><?php esc_html_e( 'Get Download Our App', 'listeners-blog' ); ?></h4>
 					<div class="footer-app-badges">
 						<a href="<?php echo $siteUrl ?>/download-application" target="_blank" rel="noopener noreferrer" class="footer-app-link">
-							<img src="https://listenersconnect.com/assets/play-store-button.svg" alt="Get it on Google Play" />
+							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/play-store-button.svg" alt="Get it on Google Play" />
 						</a>
 						<a href="<?php echo $siteUrl ?>/download-application" target="_blank" rel="noopener noreferrer" class="footer-app-link">
-							<img src="https://listenersconnect.com/assets/app-Store-button.svg" alt="Download on the App Store" />
+							<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/app-store-button.svg" alt="Download on the App Store" />
 						</a>
 					</div>
 				</div>

@@ -64,10 +64,10 @@ $site_url = "https://listenersconnect.com";
 				<p class="app-download-title"><?php esc_html_e( 'Get the Listeners App Download from', 'listeners-blog' ); ?></p>
 				<div class="app-download-badges">
 					<a href="<?php echo $site_url; ?>/download-application" target="_blank" rel="noopener noreferrer" class="app-badge-link">
-						<img src="<?php echo $site_url; ?>/assets/play-store-button.svg" alt="<?php esc_attr_e( 'Get it on Google Play', 'listeners-blog' ); ?>" class="app-badge-img" />
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/play-store-button.svg" alt="<?php esc_attr_e( 'Get it on Google Play', 'listeners-blog' ); ?>" class="app-badge-img" />
 					</a>
 					<a href="<?php echo $site_url; ?>/download-application" target="_blank" rel="noopener noreferrer" class="app-badge-link">
-						<img src="<?php echo $site_url; ?>/assets/app-Store-button.svg" alt="<?php esc_attr_e( 'Download on the App Store', 'listeners-blog' ); ?>" class="app-badge-img" />
+						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/app-store-button.svg" alt="<?php esc_attr_e( 'Download on the App Store', 'listeners-blog' ); ?>" class="app-badge-img" />
 					</a>
 				</div>
 			</div>
