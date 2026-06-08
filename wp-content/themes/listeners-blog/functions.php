@@ -1,0 +1,213 @@
+<?php
+/**
+ * Listeners Blog functions and definitions
+ *
+ * @link https://developer.wordpress.org/themes/basics/theme-functions/
+ *
+ * @package Listeners_Blog
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
+if ( ! function_exists( 'listeners_blog_setup' ) ) :
+	/**
+	 * Sets up theme defaults and registers support for various WordPress features.
+	 */
+	function listeners_blog_setup() {
+		// Add default posts and comments RSS feed links to head.
+		add_theme_support( 'automatic-feed-links' );
+
+		/*
+		 * Let WordPress manage the document title.
+		 * By adding theme support, we declare that this theme does not use a
+		 * hard-coded <title> tag in the document head, and WordPress will
+		 * provide it for us.
+		 */
+		add_theme_support( 'title-tag' );
+
+		/*
+		 * Enable support for Post Thumbnails on posts and pages.
+		 *
+		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
+		 */
+		add_theme_support( 'post-thumbnails' );
+		set_post_thumbnail_size( 1200, 9999 ); // Unlimited height
+
+		// This theme uses wp_nav_menu() in two locations.
+		register_nav_menus(
+			array(
+				'menu-primary' => esc_html__( 'Primary Menu', 'listeners-blog' ),
+				'menu-footer'  => esc_html__( 'Footer Menu', 'listeners-blog' ),
+			)
+		);
+
+		/*
+		 * Switch default core markup for search form, comment form, and comments
+		 * to output valid HTML5.
+		 */
+		add_theme_support(
+			'html5',
+			array(
+				'search-form',
+				'comment-form',
+				'comment-list',
+				'gallery',
+				'caption',
+				'style',
+				'script',
+			)
+		);
+
+		// Add theme support for Custom Logo.
+		add_theme_support(
+			'custom-logo',
+			array(
+				'height'      => 250,
+				'width'       => 250,
+				'flex-width'  => true,
+				'flex-height' => true,
+			)
+		);
+
+		// Add support for responsive embedded content.
+		add_theme_support( 'responsive-embeds' );
+	}
+endif;
+add_action( 'after_setup_theme', 'listeners_blog_setup' );
+
+/**
+ * Register widget area.
+ *
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ */
+function listeners_blog_widgets_init() {
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Sidebar', 'listeners-blog' ),
+			'id'            => 'sidebar-1',
+			'description'   => esc_html__( 'Add widgets here to appear in your sidebar.', 'listeners-blog' ),
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>',
+		)
+	);
+
+	// Footer Widgets
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer 1', 'listeners-blog' ),
+			'id'            => 'footer-1',
+			'description'   => esc_html__( 'First footer widget area.', 'listeners-blog' ),
+			'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="footer-widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer 2', 'listeners-blog' ),
+			'id'            => 'footer-2',
+			'description'   => esc_html__( 'Second footer widget area.', 'listeners-blog' ),
+			'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="footer-widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'Footer 3', 'listeners-blog' ),
+			'id'            => 'footer-3',
+			'description'   => esc_html__( 'Third footer widget area.', 'listeners-blog' ),
+			'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
+			'after_widget'  => '</div>',
+			'before_title'  => '<h4 class="footer-widget-title">',
+			'after_title'   => '</h4>',
+		)
+	);
+}
+add_action( 'widgets_init', 'listeners_blog_widgets_init' );
+
+/**
+ * Enqueue scripts and styles.
+ */
+function listeners_blog_scripts() {
+	// Google Fonts
+	wp_enqueue_style( 'listeners-blog-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap', array(), null );
+
+	// Theme Stylesheet
+	wp_enqueue_style( 'listeners-blog-style', get_stylesheet_uri(), array( 'listeners-blog-fonts' ), filemtime( get_template_directory() . '/style.css' ) );
+
+	// Theme JS
+	wp_enqueue_script( 'listeners-blog-theme-js', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery' ), wp_get_theme()->get( 'Version' ), true );
+
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+		wp_enqueue_script( 'comment-reply' );
+	}
+}
+add_action( 'wp_enqueue_scripts', 'listeners_blog_scripts' );
+
+/**
+ * Calculate post reading time.
+ */
+function listeners_blog_reading_time( $post_id = null ) {
+	if ( ! $post_id ) {
+		$post_id = get_the_ID();
+	}
+	$content = get_post_field( 'post_content', $post_id );
+	$word_count = str_word_count( strip_tags( $content ) );
+	$readingtime = ceil( $word_count / 200 ); // 200 words per minute average reading speed
+
+	if ( $readingtime <= 1 ) {
+		$timer = esc_html__( '1 min read', 'listeners-blog' );
+	} else {
+		$timer = $readingtime . ' ' . esc_html__( 'min read', 'listeners-blog' );
+	}
+
+	return $timer;
+}
+
+
+add_filter('intermediate_image_sizes_advanced', '__return_empty_array');
+add_filter('big_image_size_threshold', '__return_false');
+
+/**
+ * Force display of featured images in the Latest Posts Gutenberg block.
+ */
+add_filter( 'render_block_data', function( $block ) {
+	if ( isset( $block['blockName'] ) && 'core/latest-posts' === $block['blockName'] ) {
+		$block['attrs']['displayFeaturedImage'] = true;
+		$block['attrs']['displayPostDate']      = true;
+		if ( empty( $block['attrs']['featuredImageSizeSlug'] ) ) {
+			$block['attrs']['featuredImageSizeSlug'] = 'thumbnail';
+		}
+		if ( empty( $block['attrs']['featuredImageAlign'] ) ) {
+			$block['attrs']['featuredImageAlign'] = 'left';
+		}
+	}
+	return $block;
+}, 10, 1 );
+
+/**
+ * Remove website url field from comment form.
+ */
+add_filter( 'comment_form_default_fields', function( $fields ) {
+	if ( isset( $fields['url'] ) )	 {
+		unset( $fields['url'] );
+	}
+	if ( isset( $fields['cookies'] ) ) {
+		$fields['cookies'] = str_replace(
+			'Save my name, email, and website',
+			'Save my name and email',
+			$fields['cookies']
+		);
+	}
+	return $fields;
+} );
+
