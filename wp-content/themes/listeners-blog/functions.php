@@ -236,5 +236,61 @@ function listeners_blog_site_icon_fallback( $url, $size, $blog_id ) {
 	return $url;
 }
 
+/**
+ * Register customizer settings for social links.
+ */
+function listeners_blog_customize_register( $wp_customize ) {
+	$wp_customize->add_section( 'listeners_blog_social_section', array(
+		'title'    => __( 'Social Media Links', 'listeners-blog' ),
+		'priority' => 30,
+	) );
+
+	// Facebook
+	$wp_customize->add_setting( 'listeners_blog_facebook_link', array(
+		'default'           => 'https://facebook.com/listenersconnect',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'listeners_blog_facebook_link', array(
+		'label'    => __( 'Facebook URL', 'listeners-blog' ),
+		'section'  => 'listeners_blog_social_section',
+		'type'     => 'url',
+	) );
+
+	// Instagram
+	$wp_customize->add_setting( 'listeners_blog_instagram_link', array(
+		'default'           => 'https://instagram.com/listenersconnect',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'listeners_blog_instagram_link', array(
+		'label'    => __( 'Instagram URL', 'listeners-blog' ),
+		'section'  => 'listeners_blog_social_section',
+		'type'     => 'url',
+	) );
+
+	// LinkedIn
+	$wp_customize->add_setting( 'listeners_blog_linkedin_link', array(
+		'default'           => 'https://linkedin.com/company/listenersconnect',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'listeners_blog_linkedin_link', array(
+		'label'    => __( 'LinkedIn URL', 'listeners-blog' ),
+		'section'  => 'listeners_blog_social_section',
+		'type'     => 'url',
+	) );
+
+	// YouTube
+	$wp_customize->add_setting( 'listeners_blog_youtube_link', array(
+		'default'           => 'https://youtube.com/listenersconnect',
+		'sanitize_callback' => 'esc_url_raw',
+	) );
+	$wp_customize->add_control( 'listeners_blog_youtube_link', array(
+		'label'    => __( 'YouTube URL', 'listeners-blog' ),
+		'section'  => 'listeners_blog_social_section',
+		'type'     => 'url',
+	) );
+}
+add_action( 'customize_register', 'listeners_blog_customize_register' );
+
+
 
 
