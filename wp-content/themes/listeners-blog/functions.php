@@ -288,6 +288,34 @@ function listeners_blog_customize_register( $wp_customize ) {
 		'section'  => 'listeners_blog_social_section',
 		'type'     => 'url',
 	) );
+
+	// Footer Settings Section
+	$wp_customize->add_section( 'listeners_blog_footer_section', array(
+		'title'    => __( 'Footer Settings', 'listeners-blog' ),
+		'priority' => 31,
+	) );
+
+	// Footer Description Setting
+	$wp_customize->add_setting( 'listeners_blog_footer_description', array(
+		'default'           => __( 'Listeners Connect is an online emotional support and relationship guidance platform where you can talk freely with supportive listeners for dating advice, relationship clarity, breakup healing, anxiety support, and meaningful human connection — anytime, anywhere.', 'listeners-blog' ),
+		'sanitize_callback' => 'sanitize_textarea_field',
+	) );
+	$wp_customize->add_control( 'listeners_blog_footer_description', array(
+		'label'    => __( 'Footer Description', 'listeners-blog' ),
+		'section'  => 'listeners_blog_footer_section',
+		'type'     => 'textarea',
+	) );
+
+	// Copyright Text Setting
+	$wp_customize->add_setting( 'listeners_blog_copyright_text', array(
+		'default'           => __( 'Copyright &copy; 2026 Listeners - All Rights Reserved.', 'listeners-blog' ),
+		'sanitize_callback' => 'wp_kses_post',
+	) );
+	$wp_customize->add_control( 'listeners_blog_copyright_text', array(
+		'label'    => __( 'Copyright Text', 'listeners-blog' ),
+		'section'  => 'listeners_blog_footer_section',
+		'type'     => 'text',
+	) );
 }
 add_action( 'customize_register', 'listeners_blog_customize_register' );
 

@@ -41,7 +41,9 @@ $siteUrl = "https://listenersconnect.com";
 						</div>
 					</div>
 					<p class="footer-description">
-						<?php esc_html_e( 'Listeners Connect is an online emotional support and relationship guidance platform where you can talk freely with supportive listeners for dating advice, relationship clarity, breakup healing, anxiety support, and meaningful human connection — anytime, anywhere.', 'listeners-blog' ); ?>
+						<?php 
+						echo esc_html( get_theme_mod( 'listeners_blog_footer_description', __( 'Listeners Connect is an online emotional support and relationship guidance platform where you can talk freely with supportive listeners for dating advice, relationship clarity, breakup healing, anxiety support, and meaningful human connection — anytime, anywhere.', 'listeners-blog' ) ) ); 
+						?>
 					</p>
 					
 					<!-- Social Media Links -->
@@ -137,7 +139,7 @@ $siteUrl = "https://listenersconnect.com";
 			<!-- Footer Bottom -->
 			<div class="footer-bottom">
 				<div class="footer-copyright">
-					<p><?php printf( esc_html__( 'Copyright &copy; %s Listeners - All Rights Reserved.', 'listeners-blog' ), '2026' ); ?></p>
+					<p><?php echo wp_kses_post( get_theme_mod( 'listeners_blog_copyright_text', __( 'Copyright &copy; 2026 Listeners - All Rights Reserved.', 'listeners-blog' ) ) ); ?></p>
 				</div>
 				<nav class="footer-nav" aria-label="<?php esc_attr_e( 'Footer Menu', 'listeners-blog' ); ?>">
 					<?php
