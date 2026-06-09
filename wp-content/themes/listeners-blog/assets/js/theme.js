@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Skip TOC links as they are handled separately with custom offset
             if (this.classList.contains('toc-link')) return;
 
-            const target = document.querySelector(href);
+            const target = href.startsWith('#') ? document.getElementById(href.substring(1)) : document.querySelector(href);
             if (target) {
                 e.preventDefault();
                 target.scrollIntoView({
@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.stopPropagation(); // Avoid triggering general smooth scroll
                 
                 const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                const targetElement = targetId.startsWith('#') ? document.getElementById(targetId.substring(1)) : document.querySelector(targetId);
                 
                 if (targetElement) {
                     const headerHeight = document.querySelector('.site-header')?.offsetHeight || 80;
