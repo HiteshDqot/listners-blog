@@ -80,10 +80,10 @@ get_header();
 					$tags = get_the_tags();
 					if ( ! empty( $tags ) ) :
 						?>
-						<div class="post-tags" style="margin-top: 2.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+						<div class="post-tags">
 							<?php
 							foreach ( $tags as $tag ) {
-								echo '<a href="' . esc_url( get_tag_link( $tag->term_id ) ) . '" style="font-size: 0.8rem; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-color); padding: 0.4rem 0.85rem; border-radius: 8px; color: var(--text-secondary);">' . esc_html( $tag->name ) . '</a>';
+								echo '<a href="' . esc_url( get_tag_link( $tag->term_id ) ) . '" class="post-tag-link">' . esc_html( $tag->name ) . '</a>';
 							}
 							?>
 						</div>
