@@ -32,7 +32,7 @@ $Siteurl = "https://listenersconnect.com";
 		<div class="container">
 			<!-- Logo (Far Left) -->
 			<div class="site-logo">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+				<a href="<?php echo $Siteurl; ?>" rel="home">
 					<img src="<?php echo listeners_blog_get_logo_url(); ?>" alt="<?php bloginfo( 'name' ); ?>">
 				</a>
 			</div>

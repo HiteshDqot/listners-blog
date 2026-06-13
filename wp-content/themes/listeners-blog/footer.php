@@ -35,7 +35,7 @@ $siteUrl = "https://listenersconnect.com";
 					<div class="footer-logo-container">
 						<!-- Logo SVG -->
 						<div class="footer-logo">
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+							<a href="<?php echo $siteUrl; ?>" rel="home">
 								<img src="<?php echo listeners_blog_get_logo_url(); ?>" alt="<?php bloginfo( 'name' ); ?>">
 							</a>
 						</div>
