@@ -979,6 +979,12 @@ img {
 .comment-list {
     list-style: none;
     margin-bottom: 3rem;
+    padding-left: 0;
+}
+
+.comment-list .comment {
+    margin-bottom: 1.5rem;
+    list-style: none;
 }
 
 .comment-body {
@@ -986,7 +992,13 @@ img {
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-card);
     padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    position: relative;
+    transition: var(--transition-smooth);
+}
+
+.comment-body:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .comment-meta {
@@ -994,31 +1006,154 @@ img {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
-.comment-author-info {
+.comment-author {
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    font-style: normal;
 }
 
-.comment-author-info img {
-    border-radius: 50%;
+.comment-author img {
+    border-radius: 50% !important;
+    border: 2px solid rgba(255, 77, 141, 0.2);
+    transition: var(--transition-smooth);
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    margin-bottom: 0 !important;
 }
 
-.comment-author-info .fn {
+.comment-author:hover img {
+    border-color: var(--accent-pink);
+    transform: scale(1.05);
+}
+
+.comment-author .fn {
     font-weight: 600;
+    color: #FFFFFF;
+    font-size: 1rem;
+}
+
+.comment-author .fn a {
     color: #FFFFFF;
 }
 
+.comment-author .fn a:hover {
+    color: var(--accent-pink);
+}
+
+.comment-author .says {
+    display: none;
+}
+
 .comment-metadata {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
+}
+
+.comment-metadata a {
+    color: var(--text-muted);
+}
+
+.comment-metadata a:hover {
+    color: var(--accent-pink);
+}
+
+.comment-awaiting-moderation {
+    font-size: 0.8rem;
+    color: var(--accent-pink);
+    background: rgba(255, 77, 141, 0.1);
+    border: 1px solid rgba(255, 77, 141, 0.2);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--border-radius-badge);
+    font-style: normal;
+    font-weight: 500;
 }
 
 .comment-content {
     font-size: 0.95rem;
+    line-height: 1.6;
     color: var(--text-secondary);
+    margin-bottom: 1.25rem;
+    padding-left: 3.5rem;
+}
+
+.comment-content p {
+    margin-bottom: 0.75rem;
+}
+
+.comment-content p:last-child {
+    margin-bottom: 0;
+}
+
+.reply {
+    padding-left: 3.5rem;
+}
+
+.comment-reply-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent-pink) !important;
+    background: rgba(255, 77, 141, 0.05);
+    border: 1px solid rgba(255, 77, 141, 0.15);
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    transition: var(--transition-smooth);
+}
+
+.comment-reply-link:hover {
+    background: var(--gradient-accent);
+    color: #FFFFFF !important;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(255, 77, 141, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Threaded/Nested Comments Indentation & Connection lines */
+.comment-list ul.children {
+    list-style: none;
+    padding-left: 3.5rem;
+    margin-top: 1.5rem;
+    position: relative;
+}
+
+.comment-list ul.children::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 1.75rem;
+    bottom: 2rem;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.04);
+}
+
+@media (max-width: 768px) {
+    .comment-list ul.children {
+        padding-left: 1.5rem;
+    }
+    .comment-list ul.children::before {
+        left: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .comment-content,
+    .reply {
+        padding-left: 0;
+    }
+    .comment-list ul.children {
+        padding-left: 0.75rem;
+    }
+    .comment-list ul.children::before {
+        display: none;
+    }
 }
 
 .comment-form {
@@ -1076,9 +1211,7 @@ img {
     position: relative;
     overflow: hidden;
 } */
-.comment-author, img{
-    margin-bottom: 10px !important;
-}
+
 .site-footer {
     /* position: relative; */
     z-index: 10;
