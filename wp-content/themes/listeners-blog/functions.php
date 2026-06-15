@@ -212,6 +212,12 @@ add_filter( 'comment_form_default_fields', function( $fields ) {
 } );
 
 /**
+ * Disable comment flood control to allow rapid testing.
+ */
+add_filter( 'wp_is_comment_flood', '__return_false' );
+add_filter( 'comment_flood_filter', '__return_false' );
+
+/**
  * Retrieve dynamic site logo URL with fallback to template asset.
  */
 function listeners_blog_get_logo_url() {
