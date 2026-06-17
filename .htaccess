@@ -1,9 +1,10 @@
-# BEGIN Sitemap
+# BEGIN Sitemap & Robots
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteRule ^sitemap\.xml$ sitemap-generator.php [L]
+RewriteRule ^robots\.txt$ robots-generator.php [L]
 </IfModule>
-# END Sitemap
+# END Sitemap & Robots
 
 
 # BEGIN WordPress
