@@ -1,3 +1,11 @@
+# BEGIN Sitemap
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule ^sitemap\.xml$ sitemap-generator.php [L]
+</IfModule>
+# END Sitemap
+
+
 # BEGIN WordPress
 # The directives (lines) between "BEGIN WordPress" and "END WordPress" are
 # dynamically generated, and should only be modified via WordPress filters.
@@ -11,3 +19,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /listeners-blog/index.php [L]
 </IfModule>
 # END WordPress
+

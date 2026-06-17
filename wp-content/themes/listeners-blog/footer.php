@@ -119,6 +119,7 @@ $siteUrl = "https://listenersconnect.com";
 						<li><a href="<?php echo $siteUrl ?>/faqs"><?php esc_html_e( 'FAQs', 'listeners-blog' ); ?></a></li>
 						<li><a href="<?php echo $siteUrl ?>/terms"><?php esc_html_e( 'Terms & Conditions', 'listeners-blog' ); ?></a></li>
 						<li><a href="<?php echo $siteUrl ?>/privacy"><?php esc_html_e( 'Privacy Policy', 'listeners-blog' ); ?></a></li>
+						<li><a href="<?php echo esc_url( home_url( '/sitemap/' ) ); ?>"><?php esc_html_e( 'Sitemap', 'listeners-blog' ); ?></a></li>
 					</ul>
 				</div>
 

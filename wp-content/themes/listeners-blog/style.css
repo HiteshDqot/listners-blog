@@ -2759,3 +2759,200 @@ img {
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(255, 77, 141, 0.15);
 }
+
+/* ==========================================
+   SITEMAP PAGE STYLES (template-sitemap.php)
+   ========================================== */
+.sitemap-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+    .sitemap-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.sitemap-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-card);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition-smooth);
+}
+
+.sitemap-card:hover {
+    border-color: var(--border-color-hover);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+    .sitemap-card-wide {
+        grid-column: span 2;
+    }
+}
+
+.sitemap-card-header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.sitemap-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.sitemap-card-body {
+    flex-grow: 1;
+}
+
+/* Sitemap Lists */
+.sitemap-links {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.sitemap-links li a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.sitemap-links li a:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color-hover);
+    color: #FFFFFF;
+    transform: translateX(4px);
+}
+
+.count-badge {
+    background-color: rgba(255, 77, 141, 0.15);
+    color: #FF4D8D;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: var(--border-radius-badge);
+}
+
+/* Post list styling */
+.sitemap-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.sitemap-post-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    transition: var(--transition-smooth);
+}
+
+.sitemap-post-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--border-color-hover);
+    transform: translateX(4px);
+}
+
+.sitemap-post-date {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.sitemap-post-link {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #FFFFFF;
+}
+
+.sitemap-post-link:hover {
+    color: var(--accent-pink);
+}
+
+.sitemap-post-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--border-radius-badge);
+    background-color: #8A2BE2;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+@media (max-width: 576px) {
+    .sitemap-post-item {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+    .sitemap-post-category {
+        align-self: start;
+    }
+}
+
+/* Tags cloud */
+.sitemap-tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.sitemap-tag-pill {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    padding: 0.4rem 0.85rem;
+    border-radius: 8px;
+    color: var(--text-secondary);
+    transition: var(--transition-smooth);
+}
+
+.sitemap-tag-pill:hover {
+    background: var(--gradient-accent);
+    color: #FFFFFF;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 77, 141, 0.2);
+}
+
+.tag-count {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+}
+
+.sitemap-tag-pill:hover .tag-count {
+    color: rgba(255, 255, 255, 0.8);
+}
+

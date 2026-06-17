@@ -325,6 +325,37 @@ function listeners_blog_customize_register( $wp_customize ) {
 }
 add_action( 'customize_register', 'listeners_blog_customize_register' );
 
+/**
+ * Programmatically create a Sitemap page if it doesn't exist.
+ */
+function listeners_blog_create_sitemap_page() {
+	if ( get_option( 'listeners_blog_sitemap_created' ) ) {
+		return;
+	}
+
+	$sitemap_slug = 'sitemap';
+	$page_exists = get_page_by_path( $sitemap_slug );
+
+	if ( ! $page_exists ) {
+		$page_id = wp_insert_post( array(
+			'post_title'   => 'Sitemap',
+			'post_name'    => $sitemap_slug,
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'post_content' => '',
+		) );
+
+		if ( $page_id && ! is_wp_error( $page_id ) ) {
+			update_post_meta( $page_id, '_wp_page_template', 'template-sitemap.php' );
+			update_option( 'listeners_blog_sitemap_created', 1 );
+		}
+	} else {
+		update_option( 'listeners_blog_sitemap_created', 1 );
+	}
+}
+add_action( 'init', 'listeners_blog_create_sitemap_page' );
+
+
 
 
 
