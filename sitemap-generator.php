@@ -4,10 +4,14 @@
  */
 
 // Disable loading theme files
-define( 'WP_USE_THEMES', false );
+if ( ! defined( 'WP_USE_THEMES' ) ) {
+	define( 'WP_USE_THEMES', false );
+}
 
 // Load WordPress environment
-require_once( './wp-load.php' );
+if ( ! defined( 'ABSPATH' ) ) {
+	require_once( './wp-load.php' );
+}
 
 // Set headers
 header( 'Content-Type: application/xml; charset=utf-8' );

@@ -355,7 +355,49 @@ function listeners_blog_create_sitemap_page() {
 }
 add_action( 'init', 'listeners_blog_create_sitemap_page' );
 
+/**
+ * Custom Rewrite Rules for XML Sitemap and Robots.txt
+ */
+add_action( 'init', 'listeners_blog_custom_rewrite_rules' );
+function listeners_blog_custom_rewrite_rules() {
+	add_rewrite_rule( '^sitemap\.xml$', 'index.php?custom_sitemap=1', 'top' );
+	add_rewrite_rule( '^robots\.txt$', 'index.php?custom_robots=1', 'top' );
+	
+	// Flush rewrite rules dynamically once when these rules are added/modified
+	if ( ! get_option( 'listeners_blog_rewrites_flushed_v1' ) ) {
+		flush_rewrite_rules( false );
+		update_option( 'listeners_blog_rewrites_flushed_v1', 1 );
+	}
+}
 
+add_filter( 'query_vars', 'listeners_blog_custom_query_vars' );
+function listeners_blog_custom_query_vars( $vars ) {
+	$vars[] = 'custom_sitemap';
+	$vars[] = 'custom_robots';
+	return $vars;
+}
 
+add_action( 'template_redirect', 'listeners_blog_custom_template_redirect' );
+function listeners_blog_custom_template_redirect() {
+	if ( get_query_var( 'custom_sitemap' ) ) {
+		if ( ob_get_length() ) {
+			ob_clean();
+		}
+		include ABSPATH . 'sitemap-generator.php';
+		exit;
+	}
+	if ( get_query_var( 'custom_robots' ) ) {
+		if ( ob_get_length() ) {
+			ob_clean();
+		}
+		include ABSPATH . 'robots-generator.php';
+		exit;
+	}
+}
 
+/**
+ * Programmatically disable Yoast SEO's built-in XML sitemaps to prevent conflicts
+ * with our custom sitemap and robots.txt.
+ */
+add_filter( 'wpseo_enable_xml_sitemap', '__return_false' );
 
