@@ -401,3 +401,15 @@ function listeners_blog_custom_template_redirect() {
  */
 add_filter( 'wpseo_enable_xml_sitemap', '__return_false' );
 
+/**
+ * Limit frontend list pages (home, archive, search) to 8 posts per page.
+ */
+function listeners_blog_set_posts_per_page( $query ) {
+	if ( ! is_admin() && $query->is_main_query() ) {
+		if ( $query->is_home() || $query->is_archive() || $query->is_search() ) {
+			$query->set( 'posts_per_page', 8 );
+		}
+	}
+}
+add_action( 'pre_get_posts', 'listeners_blog_set_posts_per_page' );
+
