@@ -2956,3 +2956,203 @@ img {
     color: rgba(255, 255, 255, 0.8);
 }
 
+/* ==========================================
+   VISUAL WEB STORIES SECTION
+   ========================================== */
+.home-web-stories-section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--border-color);
+    background-color: #08080A; /* Slightly darker/different tone for visual contrast */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Add a subtle background glow behind the stories section */
+.home-web-stories-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(138, 43, 226, 0.05) 0%, rgba(255, 77, 141, 0.02) 50%, rgba(0,0,0,0) 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.home-web-stories-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    background: var(--gradient-accent);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+.section-desc {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Grid of Stories */
+.stories-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3.5rem;
+}
+
+@media (min-width: 576px) {
+    .stories-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .stories-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1200px) {
+    .stories-grid {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.75rem;
+    }
+}
+
+/* Story Card */
+.story-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 9 / 16;
+    border-radius: var(--border-radius-card);
+    overflow: hidden;
+    background-color: #13131A;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.story-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--border-color-hover);
+    box-shadow: 0 12px 30px rgba(138, 43, 226, 0.25);
+}
+
+.story-poster-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.story-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.story-card:hover img {
+    transform: scale(1.06);
+}
+
+/* Dark gradient overlay for readability */
+.story-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(12, 12, 14, 0.95) 0%,
+        rgba(12, 12, 14, 0.6) 40%,
+        rgba(12, 12, 14, 0.1) 75%,
+        rgba(12, 12, 14, 0.3) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Content on top of overlay */
+.story-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.5rem 1.25rem;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+/* Small visual story tag */
+.story-badge {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: rgba(255, 77, 141, 0.15);
+    border: 1px solid rgba(255, 77, 141, 0.3);
+    color: var(--accent-pink);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.65rem;
+    border-radius: var(--border-radius-badge);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    backdrop-filter: blur(4px);
+}
+
+/* Play Icon for Story Badge */
+.story-badge::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 8px;
+    background-color: var(--accent-pink);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+.story-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #FFFFFF;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.story-card:hover .story-title {
+    color: #FFFFFF;
+}
+
+/* Custom Stories Pagination styling to make it align nicely */
+.stories-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+

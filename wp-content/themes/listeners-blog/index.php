@@ -99,5 +99,91 @@ get_header();
 	</div>
 </main>
 
+<!-- Visual Stories Section -->
+<?php
+$paged_stories = isset($_GET['paged_stories']) ? max(1, intval($_GET['paged_stories'])) : 1;
+$stories_per_page = 10; // 5 columns on desktop, 10 stories shows 2 complete rows
+
+$stories_query = new WP_Query(array(
+	'post_type'      => 'web-story',
+	'post_status'    => 'publish',
+	'posts_per_page' => $stories_per_page,
+	'paged'          => $paged_stories,
+));
+
+if ($stories_query->have_posts()) :
+?>
+	<section id="stories-section" class="home-web-stories-section">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="section-title"><?php esc_html_e('Visual Stories', 'listeners-blog'); ?></h2>
+				<p class="section-desc">
+					<?php esc_html_e('Swipe through our quick and visually engaging mental health & relationship stories.', 'listeners-blog'); ?>
+				</p>
+			</div>
+
+			<div class="stories-grid">
+				<?php
+				while ($stories_query->have_posts()) :
+					$stories_query->the_post();
+					$story_id = get_the_ID();
+
+					// Get poster image from plugin metadata, fallback to standard featured image
+					$poster_url = '';
+					$poster_meta = get_post_meta($story_id, 'web_stories_poster', true);
+					if (is_array($poster_meta) && !empty($poster_meta['url'])) {
+						$poster_url = $poster_meta['url'];
+					} else {
+						$poster_url = get_the_post_thumbnail_url($story_id, 'large');
+					}
+
+					// Final fallback inline gradient placeholder if no image exists
+					$has_image = !empty($poster_url);
+				?>
+					<a href="<?php the_permalink(); ?>" class="story-card" target="_blank" rel="noopener">
+						<div class="story-poster-wrapper">
+							<?php if ($has_image) : ?>
+								<img src="<?php echo esc_url($poster_url); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" loading="lazy" />
+							<?php else : ?>
+								<div style="width: 100%; height: 100%; background: var(--gradient-accent); opacity: 0.15; position: absolute; top: 0; left: 0;"></div>
+								<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; font-size: 1.2rem; font-family: var(--font-heading); text-align: center; padding: 1rem;"><?php esc_html_e('STORY', 'listeners-blog'); ?></div>
+							<?php endif; ?>
+						</div>
+						<div class="story-overlay"></div>
+						<div class="story-content">
+							<span class="story-badge"><?php esc_html_e('Story', 'listeners-blog'); ?></span>
+							<h3 class="story-title"><?php the_title(); ?></h3>
+						</div>
+					</a>
+				<?php
+				endwhile;
+				wp_reset_postdata();
+				?>
+			</div>
+
+			<?php if ($stories_query->max_num_pages > 1) : ?>
+				<div class="stories-pagination pagination">
+					<nav class="navigation" role="navigation">
+						<div class="nav-links">
+							<?php
+							$big = 999999999;
+							echo paginate_links(array(
+								'base'      => str_replace($big, '%#%', esc_url(add_query_arg('paged_stories', $big))) . '#stories-section',
+								'format'    => '?paged_stories=%#%',
+								'current'   => $paged_stories,
+								'total'     => $stories_query->max_num_pages,
+								'prev_text' => sprintf('<span>%s</span>', esc_html__('Prev', 'listeners-blog')),
+								'next_text' => sprintf('<span>%s</span>', esc_html__('Next', 'listeners-blog')),
+								'type'      => 'plain',
+							));
+							?>
+						</div>
+					</nav>
+				</div>
+			<?php endif; ?>
+		</div>
+	</section>
+<?php endif; ?>
+
 <?php
 get_footer();
