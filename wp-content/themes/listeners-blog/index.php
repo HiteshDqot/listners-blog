@@ -19,7 +19,7 @@ get_header();
 <!-- Hero Section -->
 <section class="home-hero">
 	<div class="container">
-		<h1 class="home-hero-title"><?php esc_html_e('Listeners — Someone Who Truly Listens', 'listeners-blog'); ?></h1>
+		<h2 class="home-hero-title"><?php esc_html_e('Listeners — Someone Who Truly Listens', 'listeners-blog'); ?></h2>
 		<p class="home-hero-desc">
 			<?php esc_html_e('You Don\'t Have To Face Love, Heartbreak, Or Loneliness Alone. Talk To Compassionate Listeners And Experts Who Understand Your Feelings And Help You Find Clarity, Comfort, And Strength.', 'listeners-blog'); ?>
 		</p>
@@ -61,9 +61,9 @@ get_header();
 
 						<!-- Card Body -->
 						<div class="card-body">
-							<h3 class="card-title">
+							<h2 class="card-title">
 								<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-							</h3>
+							</h2>
 
 							<div class="card-excerpt">
 								<?php the_excerpt(); ?>

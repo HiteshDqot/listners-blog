@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Listeners Blog functions and definitions
  *
@@ -7,17 +8,18 @@
  * @package Listeners_Blog
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
-if ( ! function_exists( 'listeners_blog_setup' ) ) :
+if (! function_exists('listeners_blog_setup')) :
 	/**
 	 * Sets up theme defaults and registers support for various WordPress features.
 	 */
-	function listeners_blog_setup() {
+	function listeners_blog_setup()
+	{
 		// Add default posts and comments RSS feed links to head.
-		add_theme_support( 'automatic-feed-links' );
+		add_theme_support('automatic-feed-links');
 
 		/*
 		 * Let WordPress manage the document title.
@@ -25,21 +27,21 @@ if ( ! function_exists( 'listeners_blog_setup' ) ) :
 		 * hard-coded <title> tag in the document head, and WordPress will
 		 * provide it for us.
 		 */
-		add_theme_support( 'title-tag' );
+		add_theme_support('title-tag');
 
 		/*
 		 * Enable support for Post Thumbnails on posts and pages.
 		 *
 		 * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
 		 */
-		add_theme_support( 'post-thumbnails' );
-		set_post_thumbnail_size( 1200, 9999 ); // Unlimited height
+		add_theme_support('post-thumbnails');
+		set_post_thumbnail_size(1200, 9999); // Unlimited height
 
 		// This theme uses wp_nav_menu() in two locations.
 		register_nav_menus(
 			array(
-				'menu-primary' => esc_html__( 'Primary Menu', 'listeners-blog' ),
-				'menu-footer'  => esc_html__( 'Footer Menu', 'listeners-blog' ),
+				'menu-primary' => esc_html__('Primary Menu', 'listeners-blog'),
+				'menu-footer'  => esc_html__('Footer Menu', 'listeners-blog'),
 			)
 		);
 
@@ -72,22 +74,23 @@ if ( ! function_exists( 'listeners_blog_setup' ) ) :
 		);
 
 		// Add support for responsive embedded content.
-		add_theme_support( 'responsive-embeds' );
+		add_theme_support('responsive-embeds');
 	}
 endif;
-add_action( 'after_setup_theme', 'listeners_blog_setup' );
+add_action('after_setup_theme', 'listeners_blog_setup');
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function listeners_blog_widgets_init() {
+function listeners_blog_widgets_init()
+{
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Sidebar', 'listeners-blog' ),
+			'name'          => esc_html__('Sidebar', 'listeners-blog'),
 			'id'            => 'sidebar-1',
-			'description'   => esc_html__( 'Add widgets here to appear in your sidebar.', 'listeners-blog' ),
+			'description'   => esc_html__('Add widgets here to appear in your sidebar.', 'listeners-blog'),
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
 			'before_title'  => '<h3 class="widget-title">',
@@ -98,9 +101,9 @@ function listeners_blog_widgets_init() {
 	// Footer Widgets
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Footer 1', 'listeners-blog' ),
+			'name'          => esc_html__('Footer 1', 'listeners-blog'),
 			'id'            => 'footer-1',
-			'description'   => esc_html__( 'First footer widget area.', 'listeners-blog' ),
+			'description'   => esc_html__('First footer widget area.', 'listeners-blog'),
 			'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h4 class="footer-widget-title">',
@@ -110,9 +113,9 @@ function listeners_blog_widgets_init() {
 
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Footer 2', 'listeners-blog' ),
+			'name'          => esc_html__('Footer 2', 'listeners-blog'),
 			'id'            => 'footer-2',
-			'description'   => esc_html__( 'Second footer widget area.', 'listeners-blog' ),
+			'description'   => esc_html__('Second footer widget area.', 'listeners-blog'),
 			'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h4 class="footer-widget-title">',
@@ -122,9 +125,9 @@ function listeners_blog_widgets_init() {
 
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'Footer 3', 'listeners-blog' ),
+			'name'          => esc_html__('Footer 3', 'listeners-blog'),
 			'id'            => 'footer-3',
-			'description'   => esc_html__( 'Third footer widget area.', 'listeners-blog' ),
+			'description'   => esc_html__('Third footer widget area.', 'listeners-blog'),
 			'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
 			'after_widget'  => '</div>',
 			'before_title'  => '<h4 class="footer-widget-title">',
@@ -132,42 +135,44 @@ function listeners_blog_widgets_init() {
 		)
 	);
 }
-add_action( 'widgets_init', 'listeners_blog_widgets_init' );
+add_action('widgets_init', 'listeners_blog_widgets_init');
 
 /**
  * Enqueue scripts and styles.
  */
-function listeners_blog_scripts() {
+function listeners_blog_scripts()
+{
 	// Google Fonts
-	wp_enqueue_style( 'listeners-blog-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap', array(), null );
+	wp_enqueue_style('listeners-blog-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap', array(), null);
 
 	// Theme Stylesheet
-	wp_enqueue_style( 'listeners-blog-style', get_stylesheet_uri(), array( 'listeners-blog-fonts' ), filemtime( get_template_directory() . '/style.css' ) );
+	wp_enqueue_style('listeners-blog-style', get_stylesheet_uri(), array('listeners-blog-fonts'), filemtime(get_template_directory() . '/style.css'));
 
 	// Theme JS
-	wp_enqueue_script( 'listeners-blog-theme-js', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery' ), wp_get_theme()->get( 'Version' ), true );
+	wp_enqueue_script('listeners-blog-theme-js', get_template_directory_uri() . '/assets/js/theme.js', array('jquery'), wp_get_theme()->get('Version'), true);
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
+	if (is_singular() && comments_open() && get_option('thread_comments')) {
+		wp_enqueue_script('comment-reply');
 	}
 }
-add_action( 'wp_enqueue_scripts', 'listeners_blog_scripts' );
+add_action('wp_enqueue_scripts', 'listeners_blog_scripts');
 
 /**
  * Calculate post reading time.
  */
-function listeners_blog_reading_time( $post_id = null ) {
-	if ( ! $post_id ) {
+function listeners_blog_reading_time($post_id = null)
+{
+	if (! $post_id) {
 		$post_id = get_the_ID();
 	}
-	$content = get_post_field( 'post_content', $post_id );
-	$word_count = str_word_count( strip_tags( $content ) );
-	$readingtime = ceil( $word_count / 200 ); // 200 words per minute average reading speed
+	$content = get_post_field('post_content', $post_id);
+	$word_count = str_word_count(strip_tags($content));
+	$readingtime = ceil($word_count / 200); // 200 words per minute average reading speed
 
-	if ( $readingtime <= 1 ) {
-		$timer = esc_html__( '1 min read', 'listeners-blog' );
+	if ($readingtime <= 1) {
+		$timer = esc_html__('1 min read', 'listeners-blog');
 	} else {
-		$timer = $readingtime . ' ' . esc_html__( 'min read', 'listeners-blog' );
+		$timer = $readingtime . ' ' . esc_html__('min read', 'listeners-blog');
 	}
 
 	return $timer;
@@ -180,28 +185,28 @@ add_filter('big_image_size_threshold', '__return_false');
 /**
  * Force display of featured images in the Latest Posts Gutenberg block.
  */
-add_filter( 'render_block_data', function( $block ) {
-	if ( isset( $block['blockName'] ) && 'core/latest-posts' === $block['blockName'] ) {
+add_filter('render_block_data', function ($block) {
+	if (isset($block['blockName']) && 'core/latest-posts' === $block['blockName']) {
 		$block['attrs']['displayFeaturedImage'] = true;
 		$block['attrs']['displayPostDate']      = true;
-		if ( empty( $block['attrs']['featuredImageSizeSlug'] ) ) {
+		if (empty($block['attrs']['featuredImageSizeSlug'])) {
 			$block['attrs']['featuredImageSizeSlug'] = 'thumbnail';
 		}
-		if ( empty( $block['attrs']['featuredImageAlign'] ) ) {
+		if (empty($block['attrs']['featuredImageAlign'])) {
 			$block['attrs']['featuredImageAlign'] = 'left';
 		}
 	}
 	return $block;
-}, 10, 1 );
+}, 10, 1);
 
 /**
  * Remove website url field from comment form.
  */
-add_filter( 'comment_form_default_fields', function( $fields ) {
-	if ( isset( $fields['url'] ) )	 {
-		unset( $fields['url'] );
+add_filter('comment_form_default_fields', function ($fields) {
+	if (isset($fields['url'])) {
+		unset($fields['url']);
 	}
-	if ( isset( $fields['cookies'] ) ) {
+	if (isset($fields['cookies'])) {
 		$fields['cookies'] = str_replace(
 			'Save my name, email, and website',
 			'Save my name and email',
@@ -209,35 +214,37 @@ add_filter( 'comment_form_default_fields', function( $fields ) {
 		);
 	}
 	return $fields;
-} );
+});
 
 /**
  * Disable comment flood control to allow rapid testing.
  */
-add_filter( 'wp_is_comment_flood', '__return_false' );
-add_filter( 'comment_flood_filter', '__return_false' );
+add_filter('wp_is_comment_flood', '__return_false');
+add_filter('comment_flood_filter', '__return_false');
 
 /**
  * Retrieve dynamic site logo URL with fallback to template asset.
  */
-function listeners_blog_get_logo_url() {
-	$custom_logo_id = get_theme_mod( 'custom_logo' );
-	if ( $custom_logo_id ) {
-		$logo_image = wp_get_attachment_image_src( $custom_logo_id, 'full' );
-		if ( $logo_image ) {
-			return esc_url( $logo_image[0] );
+function listeners_blog_get_logo_url()
+{
+	$custom_logo_id = get_theme_mod('custom_logo');
+	if ($custom_logo_id) {
+		$logo_image = wp_get_attachment_image_src($custom_logo_id, 'full');
+		if ($logo_image) {
+			return esc_url($logo_image[0]);
 		}
 	}
-	return esc_url( get_template_directory_uri() . '/assets/listeners-logo.webp' );
+	return esc_url(get_template_directory_uri() . '/assets/listeners-logo.webp');
 }
 
 /**
  * Provide a fallback site icon (favicon) URL if not set.
  */
-add_filter( 'get_site_icon_url', 'listeners_blog_site_icon_fallback', 10, 3 );
-function listeners_blog_site_icon_fallback( $url, $size, $blog_id ) {
-	if ( empty( $url ) ) {
-		return esc_url( get_template_directory_uri() . '/assets/favicon.ico' );
+add_filter('get_site_icon_url', 'listeners_blog_site_icon_fallback', 10, 3);
+function listeners_blog_site_icon_fallback($url, $size, $blog_id)
+{
+	if (empty($url)) {
+		return esc_url(get_template_directory_uri() . '/assets/favicon.ico');
 	}
 	return $url;
 }
@@ -245,149 +252,154 @@ function listeners_blog_site_icon_fallback( $url, $size, $blog_id ) {
 /**
  * Register customizer settings for social links.
  */
-function listeners_blog_customize_register( $wp_customize ) {
-	$wp_customize->add_section( 'listeners_blog_social_section', array(
-		'title'    => __( 'Social Media Links', 'listeners-blog' ),
+function listeners_blog_customize_register($wp_customize)
+{
+	$wp_customize->add_section('listeners_blog_social_section', array(
+		'title'    => __('Social Media Links', 'listeners-blog'),
 		'priority' => 30,
-	) );
+	));
 
 	// Facebook
-	$wp_customize->add_setting( 'listeners_blog_facebook_link', array(
+	$wp_customize->add_setting('listeners_blog_facebook_link', array(
 		'default'           => 'https://facebook.com/listenersconnect',
 		'sanitize_callback' => 'esc_url_raw',
-	) );
-	$wp_customize->add_control( 'listeners_blog_facebook_link', array(
-		'label'    => __( 'Facebook URL', 'listeners-blog' ),
+	));
+	$wp_customize->add_control('listeners_blog_facebook_link', array(
+		'label'    => __('Facebook URL', 'listeners-blog'),
 		'section'  => 'listeners_blog_social_section',
 		'type'     => 'url',
-	) );
+	));
 
 	// Instagram
-	$wp_customize->add_setting( 'listeners_blog_instagram_link', array(
+	$wp_customize->add_setting('listeners_blog_instagram_link', array(
 		'default'           => 'https://instagram.com/listenersconnect',
 		'sanitize_callback' => 'esc_url_raw',
-	) );
-	$wp_customize->add_control( 'listeners_blog_instagram_link', array(
-		'label'    => __( 'Instagram URL', 'listeners-blog' ),
+	));
+	$wp_customize->add_control('listeners_blog_instagram_link', array(
+		'label'    => __('Instagram URL', 'listeners-blog'),
 		'section'  => 'listeners_blog_social_section',
 		'type'     => 'url',
-	) );
+	));
 
 	// LinkedIn
-	$wp_customize->add_setting( 'listeners_blog_linkedin_link', array(
+	$wp_customize->add_setting('listeners_blog_linkedin_link', array(
 		'default'           => 'https://linkedin.com/company/listenersconnect',
 		'sanitize_callback' => 'esc_url_raw',
-	) );
-	$wp_customize->add_control( 'listeners_blog_linkedin_link', array(
-		'label'    => __( 'LinkedIn URL', 'listeners-blog' ),
+	));
+	$wp_customize->add_control('listeners_blog_linkedin_link', array(
+		'label'    => __('LinkedIn URL', 'listeners-blog'),
 		'section'  => 'listeners_blog_social_section',
 		'type'     => 'url',
-	) );
+	));
 
 	// YouTube
-	$wp_customize->add_setting( 'listeners_blog_youtube_link', array(
+	$wp_customize->add_setting('listeners_blog_youtube_link', array(
 		'default'           => 'https://youtube.com/listenersconnect',
 		'sanitize_callback' => 'esc_url_raw',
-	) );
-	$wp_customize->add_control( 'listeners_blog_youtube_link', array(
-		'label'    => __( 'YouTube URL', 'listeners-blog' ),
+	));
+	$wp_customize->add_control('listeners_blog_youtube_link', array(
+		'label'    => __('YouTube URL', 'listeners-blog'),
 		'section'  => 'listeners_blog_social_section',
 		'type'     => 'url',
-	) );
+	));
 
 	// Footer Settings Section
-	$wp_customize->add_section( 'listeners_blog_footer_section', array(
-		'title'    => __( 'Footer Settings', 'listeners-blog' ),
+	$wp_customize->add_section('listeners_blog_footer_section', array(
+		'title'    => __('Footer Settings', 'listeners-blog'),
 		'priority' => 31,
-	) );
+	));
 
 	// Footer Description Setting
-	$wp_customize->add_setting( 'listeners_blog_footer_description', array(
-		'default'           => __( 'Listeners Connect is an online emotional support and relationship guidance platform where you can talk freely with supportive listeners for dating advice, relationship clarity, breakup healing, anxiety support, and meaningful human connection — anytime, anywhere.', 'listeners-blog' ),
+	$wp_customize->add_setting('listeners_blog_footer_description', array(
+		'default'           => __('Listeners Connect is an online emotional support and relationship guidance platform where you can talk freely with supportive listeners for dating advice, relationship clarity, breakup healing, anxiety support, and meaningful human connection — anytime, anywhere.', 'listeners-blog'),
 		'sanitize_callback' => 'sanitize_textarea_field',
-	) );
-	$wp_customize->add_control( 'listeners_blog_footer_description', array(
-		'label'    => __( 'Footer Description', 'listeners-blog' ),
+	));
+	$wp_customize->add_control('listeners_blog_footer_description', array(
+		'label'    => __('Footer Description', 'listeners-blog'),
 		'section'  => 'listeners_blog_footer_section',
 		'type'     => 'textarea',
-	) );
+	));
 
 	// Copyright Text Setting
-	$wp_customize->add_setting( 'listeners_blog_copyright_text', array(
-		'default'           => __( 'Copyright &copy; 2026 Listeners - All Rights Reserved.', 'listeners-blog' ),
+	$wp_customize->add_setting('listeners_blog_copyright_text', array(
+		'default'           => __('Copyright &copy; 2026 Listeners - All Rights Reserved.', 'listeners-blog'),
 		'sanitize_callback' => 'wp_kses_post',
-	) );
-	$wp_customize->add_control( 'listeners_blog_copyright_text', array(
-		'label'    => __( 'Copyright Text', 'listeners-blog' ),
+	));
+	$wp_customize->add_control('listeners_blog_copyright_text', array(
+		'label'    => __('Copyright Text', 'listeners-blog'),
 		'section'  => 'listeners_blog_footer_section',
 		'type'     => 'text',
-	) );
+	));
 }
-add_action( 'customize_register', 'listeners_blog_customize_register' );
+add_action('customize_register', 'listeners_blog_customize_register');
 
 /**
  * Programmatically create a Sitemap page if it doesn't exist.
  */
-function listeners_blog_create_sitemap_page() {
-	if ( get_option( 'listeners_blog_sitemap_created' ) ) {
+function listeners_blog_create_sitemap_page()
+{
+	if (get_option('listeners_blog_sitemap_created')) {
 		return;
 	}
 
 	$sitemap_slug = 'sitemap';
-	$page_exists = get_page_by_path( $sitemap_slug );
+	$page_exists = get_page_by_path($sitemap_slug);
 
-	if ( ! $page_exists ) {
-		$page_id = wp_insert_post( array(
+	if (! $page_exists) {
+		$page_id = wp_insert_post(array(
 			'post_title'   => 'Sitemap',
 			'post_name'    => $sitemap_slug,
 			'post_status'  => 'publish',
 			'post_type'    => 'page',
 			'post_content' => '',
-		) );
+		));
 
-		if ( $page_id && ! is_wp_error( $page_id ) ) {
-			update_post_meta( $page_id, '_wp_page_template', 'template-sitemap.php' );
-			update_option( 'listeners_blog_sitemap_created', 1 );
+		if ($page_id && ! is_wp_error($page_id)) {
+			update_post_meta($page_id, '_wp_page_template', 'template-sitemap.php');
+			update_option('listeners_blog_sitemap_created', 1);
 		}
 	} else {
-		update_option( 'listeners_blog_sitemap_created', 1 );
+		update_option('listeners_blog_sitemap_created', 1);
 	}
 }
-add_action( 'init', 'listeners_blog_create_sitemap_page' );
+add_action('init', 'listeners_blog_create_sitemap_page');
 
 /**
  * Custom Rewrite Rules for XML Sitemap and Robots.txt
  */
-add_action( 'init', 'listeners_blog_custom_rewrite_rules' );
-function listeners_blog_custom_rewrite_rules() {
-	add_rewrite_rule( '^sitemap\.xml$', 'index.php?custom_sitemap=1', 'top' );
-	add_rewrite_rule( '^robots\.txt$', 'index.php?custom_robots=1', 'top' );
-	
+add_action('init', 'listeners_blog_custom_rewrite_rules');
+function listeners_blog_custom_rewrite_rules()
+{
+	add_rewrite_rule('^sitemap\.xml$', 'index.php?custom_sitemap=1', 'top');
+	add_rewrite_rule('^robots\.txt$', 'index.php?custom_robots=1', 'top');
+
 	// Flush rewrite rules dynamically once when these rules are added/modified
-	if ( ! get_option( 'listeners_blog_rewrites_flushed_v1' ) ) {
-		flush_rewrite_rules( false );
-		update_option( 'listeners_blog_rewrites_flushed_v1', 1 );
+	if (! get_option('listeners_blog_rewrites_flushed_v1')) {
+		flush_rewrite_rules(false);
+		update_option('listeners_blog_rewrites_flushed_v1', 1);
 	}
 }
 
-add_filter( 'query_vars', 'listeners_blog_custom_query_vars' );
-function listeners_blog_custom_query_vars( $vars ) {
+add_filter('query_vars', 'listeners_blog_custom_query_vars');
+function listeners_blog_custom_query_vars($vars)
+{
 	$vars[] = 'custom_sitemap';
 	$vars[] = 'custom_robots';
 	return $vars;
 }
 
-add_action( 'template_redirect', 'listeners_blog_custom_template_redirect' );
-function listeners_blog_custom_template_redirect() {
-	if ( get_query_var( 'custom_sitemap' ) ) {
-		if ( ob_get_length() ) {
+add_action('template_redirect', 'listeners_blog_custom_template_redirect');
+function listeners_blog_custom_template_redirect()
+{
+	if (get_query_var('custom_sitemap')) {
+		if (ob_get_length()) {
 			ob_clean();
 		}
 		include ABSPATH . 'sitemap-generator.php';
 		exit;
 	}
-	if ( get_query_var( 'custom_robots' ) ) {
-		if ( ob_get_length() ) {
+	if (get_query_var('custom_robots')) {
+		if (ob_get_length()) {
 			ob_clean();
 		}
 		include ABSPATH . 'robots-generator.php';
@@ -399,17 +411,44 @@ function listeners_blog_custom_template_redirect() {
  * Programmatically disable Yoast SEO's built-in XML sitemaps to prevent conflicts
  * with our custom sitemap and robots.txt.
  */
-add_filter( 'wpseo_enable_xml_sitemap', '__return_false' );
+add_filter('wpseo_enable_xml_sitemap', '__return_false');
 
 /**
  * Limit frontend list pages (home, archive, search) to 8 posts per page.
  */
-function listeners_blog_set_posts_per_page( $query ) {
-	if ( ! is_admin() && $query->is_main_query() ) {
-		if ( $query->is_home() || $query->is_archive() || $query->is_search() ) {
-			$query->set( 'posts_per_page', 8 );
+function listeners_blog_set_posts_per_page($query)
+{
+	if (! is_admin() && $query->is_main_query()) {
+		if ($query->is_home() || $query->is_archive() || $query->is_search()) {
+			$query->set('posts_per_page', 8);
 		}
 	}
 }
-add_action( 'pre_get_posts', 'listeners_blog_set_posts_per_page' );
+add_action('pre_get_posts', 'listeners_blog_set_posts_per_page');
 
+/**
+ * Customize the title tag for the home page.
+ */
+function listeners_blog_custom_home_title($title)
+{
+	if (is_front_page() || is_home()) {
+		return "India's Trusted Emotional Support & Relationship Platform | Listeners Connect";
+	}
+	return $title;
+}
+add_filter('pre_get_document_title', 'listeners_blog_custom_home_title', 999);
+
+/**
+ * Add custom meta description and keywords for the home page.
+ */
+function listeners_blog_custom_home_meta_tags()
+{
+	if (is_front_page() || is_home()) {
+		$description = "Feeling low, lonely, or heartbroken? Talk to compassionate listeners & relationship experts on Listeners Connect — judgment-free, private & available anytime. Start feeling better today!";
+		$keywords = "Emotional Support Platform India, Talk to Someone Online India, Relationship Guidance Online, Online Listener for Anxiety, Breakup Recovery Support India, talk to a Expert";
+
+		echo '<meta name="description" content="' . esc_attr($description) . '" />' . "\n";
+		echo '<meta name="keywords" content="' . esc_attr($keywords) . '" />' . "\n";
+	}
+}
+add_action('wp_head', 'listeners_blog_custom_home_meta_tags', 1);
