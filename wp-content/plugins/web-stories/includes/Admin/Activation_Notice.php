@@ -124,6 +124,16 @@ class Activation_Notice implements ServiceInterface, Registerable, PluginActivat
 
 		$this->assets->enqueue_style( Google_Fonts::SCRIPT_HANDLE );
 
+		if ( ! wp_script_is( Tracking::SCRIPT_HANDLE, 'registered' ) ) {
+			$this->assets->register_script(
+				Tracking::SCRIPT_HANDLE,
+				false,
+				[],
+				WEBSTORIES_VERSION,
+				false
+			);
+		}
+
 		$this->assets->enqueue_script_asset( self::SCRIPT_HANDLE, [ Tracking::SCRIPT_HANDLE ] );
 
 		wp_localize_script(
