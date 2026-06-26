@@ -150,6 +150,16 @@ class Web_Stories_Block extends Embed_Base {
 	 */
 	public function register(): void {
 		parent::register();
+		if ( ! wp_script_is( Tracking::SCRIPT_HANDLE, 'registered' ) ) {
+			$this->assets->register_script(
+				Tracking::SCRIPT_HANDLE,
+				false,
+				[],
+				WEBSTORIES_VERSION,
+				false
+			);
+		}
+
 		$this->assets->register_script_asset( self::SCRIPT_HANDLE, [ AMP_Story_Player_Assets::SCRIPT_HANDLE, Tracking::SCRIPT_HANDLE ] );
 		$this->assets->register_style_asset( self::SCRIPT_HANDLE, [ AMP_Story_Player_Assets::SCRIPT_HANDLE, parent::SCRIPT_HANDLE ] );
 

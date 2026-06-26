@@ -437,6 +437,16 @@ class Dashboard extends Service_Base {
 			return;
 		}
 
+		if ( ! wp_script_is( Tracking::SCRIPT_HANDLE, 'registered' ) ) {
+			$this->assets->register_script(
+				Tracking::SCRIPT_HANDLE,
+				false,
+				[],
+				WEBSTORIES_VERSION,
+				false
+			);
+		}
+
 		$this->assets->enqueue_script_asset( self::SCRIPT_HANDLE, [ Tracking::SCRIPT_HANDLE ], false );
 
 		$this->assets->enqueue_style_asset( self::SCRIPT_HANDLE, [ $this->google_fonts::SCRIPT_HANDLE ] );

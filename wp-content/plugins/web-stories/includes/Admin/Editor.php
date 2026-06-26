@@ -241,6 +241,16 @@ class Editor extends Service_Base implements HasRequirements {
 				self::LIBHEIF_SCRIPT_HANDLE,
 			];
 
+			if ( ! wp_script_is( Tracking::SCRIPT_HANDLE, 'registered' ) ) {
+				$this->assets->register_script(
+					Tracking::SCRIPT_HANDLE,
+					false,
+					[],
+					WEBSTORIES_VERSION,
+					false
+				);
+			}
+
 			// Registering here because the script handle is required for wp_add_inline_script in edit-story.php.
 			$this->assets->register_script_asset( self::SCRIPT_HANDLE, $script_dependencies, false );
 
