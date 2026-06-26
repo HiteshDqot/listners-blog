@@ -362,6 +362,7 @@ img {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-card);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -369,9 +370,9 @@ img {
 }
 
 .listeners-card:hover {
-    transform: translateY(-6px);
-    border-color: var(--border-color-hover);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+    border-color: rgba(255, 77, 141, 0.4);
+    box-shadow: 0 12px 30px rgba(138, 43, 226, 0.2), 0 4px 15px rgba(255, 77, 141, 0.15);
 }
 
 .card-img-wrapper {
@@ -3052,8 +3053,8 @@ img {
 
 .story-card:hover {
     transform: translateY(-8px);
-    border-color: var(--border-color-hover);
-    box-shadow: 0 12px 30px rgba(138, 43, 226, 0.25);
+    border-color: rgba(255, 77, 141, 0.4);
+    box-shadow: 0 12px 30px rgba(138, 43, 226, 0.2), 0 4px 15px rgba(255, 77, 141, 0.15);
 }
 
 .story-poster-wrapper {
@@ -3207,8 +3208,8 @@ img {
 
 .short-card-wrapper:hover {
     transform: translateY(-8px);
-    border-color: rgba(255, 77, 141, 0.6);
-    box-shadow: 0 12px 30px rgba(255, 77, 141, 0.25);
+    border-color: rgba(255, 77, 141, 0.4);
+    box-shadow: 0 12px 30px rgba(138, 43, 226, 0.2), 0 4px 15px rgba(255, 77, 141, 0.15);
 }
 
 .short-card-wrapper iframe {
@@ -3221,14 +3222,7 @@ img {
 }
 
 /* Responsive adjustments for Tablets and Mobiles */
-@media (max-width: 1199px) {
-    .youtube-shorts-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.25rem;
-    }
-}
-
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
     .youtube-shorts-grid {
         display: flex;
         overflow-x: auto;
@@ -3255,8 +3249,14 @@ img {
     }
     
     .short-card-wrapper {
-        flex: 0 0 260px; /* Fixed width on mobile for swipe gesture */
+        flex: 0 0 280px; /* Fixed width on tablet for swipe gesture */
         scroll-snap-align: start;
+    }
+}
+
+@media (max-width: 480px) {
+    .short-card-wrapper {
+        flex: 0 0 240px; /* Slightly narrower on small mobile screens */
     }
 }
 
