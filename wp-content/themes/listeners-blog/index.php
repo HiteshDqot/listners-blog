@@ -185,5 +185,72 @@ if ($stories_query->have_posts()) :
 	</section>
 <?php endif; ?>
 
+<!-- YouTube Shorts Section -->
+<?php
+$shorts_query = new WP_Query(array(
+	'post_type'      => 'youtube-short',
+	'post_status'    => 'publish',
+	'posts_per_page' => 5,
+	'orderby'        => 'date',
+	'order'          => 'DESC',
+));
+
+$shorts_to_display = array();
+
+if ($shorts_query->have_posts()) {
+	while ($shorts_query->have_posts()) {
+		$shorts_query->the_post();
+		$url = get_post_meta(get_the_ID(), '_youtube_short_url', true);
+		$video_id = listeners_blog_get_youtube_id($url);
+		if ($video_id) {
+			$shorts_to_display[] = array(
+				'title'    => get_the_title(),
+				'video_id' => $video_id,
+			);
+		}
+	}
+	wp_reset_postdata();
+}
+
+// Fallbacks if no custom posts are published yet
+if (empty($shorts_to_display)) {
+	$shorts_to_display = array(
+		array('title' => 'YouTube Short 1', 'video_id' => 'VKmEhHlDr34'),
+		array('title' => 'YouTube Short 2', 'video_id' => 'VKmEhHlDr34'),
+		array('title' => 'YouTube Short 3', 'video_id' => 'VKmEhHlDr34'),
+		array('title' => 'YouTube Short 4', 'video_id' => 'VKmEhHlDr34'),
+		array('title' => 'YouTube Short 5', 'video_id' => 'VKmEhHlDr34'),
+	);
+}
+
+if (!empty($shorts_to_display)) :
+?>
+	<section class="home-youtube-shorts-section">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="section-title"><?php esc_html_e('YouTube Shorts', 'listeners-blog'); ?></h2>
+				<p class="section-desc">
+					<?php esc_html_e('Watch our latest quick video tips and insights on emotional guidance and relationship health.', 'listeners-blog'); ?>
+				</p>
+			</div>
+
+			<div class="youtube-shorts-grid">
+				<?php foreach ($shorts_to_display as $short) : ?>
+					<div class="short-card-wrapper">
+						<iframe
+							src="<?php echo esc_url('https://www.youtube.com/embed/' . $short['video_id']); ?>"
+							title="<?php echo esc_attr($short['title']); ?>"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							referrerpolicy="strict-origin-when-cross-origin"
+							allowfullscreen>
+						</iframe>
+					</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
+<?php endif; ?>
+
 <?php
 get_footer();

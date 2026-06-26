@@ -3155,4 +3155,109 @@ img {
     width: 100%;
 }
 
+/* ==========================================
+   YOUTUBE SHORTS SECTION
+   ========================================== */
+.home-youtube-shorts-section {
+    padding: 6rem 0;
+    border-top: 1px solid var(--border-color);
+    background-color: #0C0C0E; /* Dark page background */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle background glow for Shorts section */
+.home-youtube-shorts-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255, 77, 141, 0.04) 0%, rgba(138, 43, 226, 0.02) 50%, rgba(0,0,0,0) 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.home-youtube-shorts-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Grid of Shorts */
+.youtube-shorts-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+}
+
+/* Short Card Wrapper */
+.short-card-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: var(--border-radius-card);
+    overflow: hidden;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: var(--transition-smooth);
+}
+
+.short-card-wrapper:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255, 77, 141, 0.6);
+    box-shadow: 0 12px 30px rgba(255, 77, 141, 0.25);
+}
+
+.short-card-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Responsive adjustments for Tablets and Mobiles */
+@media (max-width: 1199px) {
+    .youtube-shorts-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .youtube-shorts-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 1.25rem;
+        padding: 0.5rem 0.25rem 1.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-pink) rgba(255, 255, 255, 0.05);
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .youtube-shorts-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .youtube-shorts-grid::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 10px;
+    }
+    
+    .youtube-shorts-grid::-webkit-scrollbar-thumb {
+        background: var(--accent-pink);
+        border-radius: 10px;
+    }
+    
+    .short-card-wrapper {
+        flex: 0 0 260px; /* Fixed width on mobile for swipe gesture */
+        scroll-snap-align: start;
+    }
+}
+
 

@@ -452,3 +452,113 @@ function listeners_blog_custom_home_meta_tags()
 	}
 }
 add_action('wp_head', 'listeners_blog_custom_home_meta_tags', 1);
+
+/**
+ * Helper function to extract YouTube video ID from URL
+ */
+function listeners_blog_get_youtube_id($url) {
+	$pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i';
+	if (preg_match($pattern, $url, $matches)) {
+		return $matches[1];
+	}
+	if (preg_match('/^[a-zA-Z0-9_-]{11}$/', trim($url))) {
+		return trim($url);
+	}
+	return false;
+}
+
+/**
+ * Register YouTube Shorts Custom Post Type
+ */
+function listeners_blog_register_youtube_shorts_cpt() {
+	$labels = array(
+		'name'               => _x('YouTube Shorts', 'post type general name', 'listeners-blog'),
+		'singular_name'      => _x('YouTube Short', 'post type singular name', 'listeners-blog'),
+		'menu_name'          => _x('YouTube Shorts', 'admin menu', 'listeners-blog'),
+		'name_admin_bar'     => _x('YouTube Short', 'add new on admin bar', 'listeners-blog'),
+		'add_new'            => _x('Add New', 'youtube-short', 'listeners-blog'),
+		'add_new_item'       => __('Add New YouTube Short', 'listeners-blog'),
+		'new_item'           => __('New YouTube Short', 'listeners-blog'),
+		'edit_item'          => __('Edit YouTube Short', 'listeners-blog'),
+		'view_item'          => __('View YouTube Short', 'listeners-blog'),
+		'all_items'          => __('All YouTube Shorts', 'listeners-blog'),
+		'search_items'       => __('Search YouTube Shorts', 'listeners-blog'),
+		'parent_item_colon'  => __('Parent YouTube Shorts:', 'listeners-blog'),
+		'not_found'          => __('No YouTube Shorts found.', 'listeners-blog'),
+		'not_found_in_trash' => __('No YouTube Shorts found in Trash.', 'listeners-blog')
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => true,
+		'query_var'          => true,
+		'rewrite'            => array('slug' => 'youtube-short'),
+		'capability_type'    => 'post',
+		'has_archive'        => false,
+		'hierarchical'       => false,
+		'menu_position'      => 5,
+		'menu_icon'          => 'dashicons-video-alt3',
+		'supports'           => array('title'),
+	);
+
+	register_post_type('youtube-short', $args);
+}
+add_action('init', 'listeners_blog_register_youtube_shorts_cpt');
+
+/**
+ * Add Metabox for YouTube Short Details
+ */
+function listeners_blog_add_youtube_short_metabox() {
+	add_meta_box(
+		'listeners_blog_youtube_short_meta',
+		__('YouTube Short Details', 'listeners-blog'),
+		'listeners_blog_youtube_short_metabox_callback',
+		'youtube-short',
+		'normal',
+		'high'
+	);
+}
+add_action('add_meta_boxes', 'listeners_blog_add_youtube_short_metabox');
+
+function listeners_blog_youtube_short_metabox_callback($post) {
+	wp_nonce_field('listeners_blog_youtube_short_save', 'listeners_blog_youtube_short_nonce');
+	$value = get_post_meta($post->ID, '_youtube_short_url', true);
+	?>
+	<p>
+		<label for="listeners_blog_youtube_short_url" style="display:block; font-weight:bold; margin-bottom: 0.5rem;">
+			<?php _e('YouTube Video URL or Video ID', 'listeners-blog'); ?>
+		</label>
+		<input type="text" id="listeners_blog_youtube_short_url" name="listeners_blog_youtube_short_url" value="<?php echo esc_attr($value); ?>" style="width: 100%; padding: 0.5rem; font-size: 1rem;" placeholder="e.g. https://www.youtube.com/shorts/VKmEhHlDr34 or VKmEhHlDr34" />
+	</p>
+	<p class="description">
+		<?php _e('Enter the full YouTube Short URL, standard YouTube URL, or just the 11-digit video ID.', 'listeners-blog'); ?>
+	</p>
+	<?php
+}
+
+/**
+ * Save Metabox data
+ */
+function listeners_blog_save_youtube_short_meta($post_id) {
+	if (!isset($_POST['listeners_blog_youtube_short_nonce'])) {
+		return;
+	}
+	if (!wp_verify_nonce($_POST['listeners_blog_youtube_short_nonce'], 'listeners_blog_youtube_short_save')) {
+		return;
+	}
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+		return;
+	}
+	if (!current_user_can('edit_post', $post_id)) {
+		return;
+	}
+
+	if (isset($_POST['listeners_blog_youtube_short_url'])) {
+		$url = sanitize_text_field($_POST['listeners_blog_youtube_short_url']);
+		update_post_meta($post_id, '_youtube_short_url', $url);
+	}
+}
+add_action('save_post', 'listeners_blog_save_youtube_short_meta');
