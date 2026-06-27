@@ -456,7 +456,8 @@ add_action('wp_head', 'listeners_blog_custom_home_meta_tags', 1);
 /**
  * Helper function to extract YouTube video ID from URL
  */
-function listeners_blog_get_youtube_id($url) {
+function listeners_blog_get_youtube_id($url)
+{
 	$pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i';
 	if (preg_match($pattern, $url, $matches)) {
 		return $matches[1];
@@ -470,7 +471,8 @@ function listeners_blog_get_youtube_id($url) {
 /**
  * Register YouTube Shorts Custom Post Type
  */
-function listeners_blog_register_youtube_shorts_cpt() {
+function listeners_blog_register_youtube_shorts_cpt()
+{
 	$labels = array(
 		'name'               => _x('YouTube Shorts', 'post type general name', 'listeners-blog'),
 		'singular_name'      => _x('YouTube Short', 'post type singular name', 'listeners-blog'),
@@ -498,7 +500,8 @@ function listeners_blog_register_youtube_shorts_cpt() {
 		'rewrite'            => array('slug' => 'youtube-short'),
 		'capability_type'    => 'post',
 		'has_archive'        => false,
-		'hierarchical'       => false,
+		'hierarchical'       => true,
+		// 'menu_position'      => 30,
 		'menu_icon'          => 'dashicons-video-alt3',
 		'supports'           => array('title'),
 	);
@@ -510,7 +513,8 @@ add_action('init', 'listeners_blog_register_youtube_shorts_cpt');
 /**
  * Add Metabox for YouTube Short Details
  */
-function listeners_blog_add_youtube_short_metabox() {
+function listeners_blog_add_youtube_short_metabox()
+{
 	add_meta_box(
 		'listeners_blog_youtube_short_meta',
 		__('YouTube Short Details', 'listeners-blog'),
@@ -522,10 +526,11 @@ function listeners_blog_add_youtube_short_metabox() {
 }
 add_action('add_meta_boxes', 'listeners_blog_add_youtube_short_metabox');
 
-function listeners_blog_youtube_short_metabox_callback($post) {
+function listeners_blog_youtube_short_metabox_callback($post)
+{
 	wp_nonce_field('listeners_blog_youtube_short_save', 'listeners_blog_youtube_short_nonce');
 	$value = get_post_meta($post->ID, '_youtube_short_url', true);
-	?>
+?>
 	<p>
 		<label for="listeners_blog_youtube_short_url" style="display:block; font-weight:bold; margin-bottom: 0.5rem;">
 			<?php _e('YouTube Video URL or Video ID', 'listeners-blog'); ?>
@@ -535,13 +540,14 @@ function listeners_blog_youtube_short_metabox_callback($post) {
 	<p class="description">
 		<?php _e('Enter the full YouTube Short URL, standard YouTube URL, or just the 11-digit video ID.', 'listeners-blog'); ?>
 	</p>
-	<?php
+<?php
 }
 
 /**
  * Save Metabox data
  */
-function listeners_blog_save_youtube_short_meta($post_id) {
+function listeners_blog_save_youtube_short_meta($post_id)
+{
 	if (!isset($_POST['listeners_blog_youtube_short_nonce'])) {
 		return;
 	}
