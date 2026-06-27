@@ -500,7 +500,7 @@ function listeners_blog_register_youtube_shorts_cpt()
 		'rewrite'            => array('slug' => 'youtube-short'),
 		'capability_type'    => 'post',
 		'has_archive'        => false,
-		'hierarchical'       => true,
+		'hierarchical'       => false,
 		// 'menu_position'      => 30,
 		'menu_icon'          => 'dashicons-video-alt3',
 		'supports'           => array('title'),
