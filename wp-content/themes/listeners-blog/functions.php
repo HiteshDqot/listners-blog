@@ -499,7 +499,6 @@ function listeners_blog_register_youtube_shorts_cpt() {
 		'capability_type'    => 'post',
 		'has_archive'        => false,
 		'hierarchical'       => false,
-		'menu_position'      => 5,
 		'menu_icon'          => 'dashicons-video-alt3',
 		'supports'           => array('title'),
 	);
