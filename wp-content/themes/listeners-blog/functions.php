@@ -567,3 +567,16 @@ function listeners_blog_save_youtube_short_meta($post_id)
 	}
 }
 add_action('save_post', 'listeners_blog_save_youtube_short_meta');
+
+/**
+ * Add canonical tag to 404 pages.
+ */
+function listeners_blog_add_404_canonical()
+{
+	if (is_404()) {
+		$request_uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+		$canonical_url = (is_ssl() ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $request_uri;
+		echo '<link rel="canonical" href="' . esc_url($canonical_url) . '" />' . "\n";
+	}
+}
+add_action('wp_head', 'listeners_blog_add_404_canonical', 2);
