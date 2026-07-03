@@ -322,7 +322,7 @@ function listeners_blog_customize_register($wp_customize)
 
 	// Copyright Text Setting
 	$wp_customize->add_setting('listeners_blog_copyright_text', array(
-		'default'           => __('Copyright &copy; 2026 Listeners - All Rights Reserved.', 'listeners-blog'),
+		'default'           => __('Copyright © 2026 Listeners - All Rights Reserved.', 'listeners-blog'),
 		'sanitize_callback' => 'wp_kses_post',
 	));
 	$wp_customize->add_control('listeners_blog_copyright_text', array(

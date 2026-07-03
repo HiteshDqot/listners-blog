@@ -1379,21 +1379,21 @@ img {
 }
 
 .footer-title {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #FFFFFF;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .footer-links-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1.3rem;
 }
 
 .footer-links-list a {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-secondary);
 }
 
@@ -1410,9 +1410,9 @@ img {
 
 .footer-links-list li a::before {
     content: '▶';
-    color: rgba(255, 255, 255, 0.25);
-    font-size: 0.55rem;
-    margin-right: 0.65rem;
+    color: #ffffff;
+    font-size: 0.7rem;
+    margin-right: 0.8rem;
     display: inline-block;
     transition: var(--transition-fast);
 }
