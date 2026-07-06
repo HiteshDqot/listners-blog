@@ -12,7 +12,7 @@
 if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
-$siteUrl = "https://listenersconnect.com";
+$siteUrl = "https://www.listenersconnect.com";
 ?>
 </div><!-- #content -->
 
