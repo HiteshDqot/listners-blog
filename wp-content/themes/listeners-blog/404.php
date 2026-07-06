@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The template for displaying 404 pages (not found)
  *
@@ -7,13 +8,13 @@
  * @package Listeners_Blog
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
 get_header();
 
-$site_url = "https://listenersconnect.com";
+$site_url = "https://www.listenersconnect.com";
 ?>
 
 <main id="primary" class="site-main site-main-404">
@@ -44,30 +45,30 @@ $site_url = "https://listenersconnect.com";
 				</svg>
 			</div>
 
-			<h1 class="error404-code-title"><?php esc_html_e( '404', 'listeners-blog' ); ?></h1>
-			<h2 class="error404-heading"><?php esc_html_e( 'Page Not Found', 'listeners-blog' ); ?></h2>
-			<p class="error404-text"><?php esc_html_e( 'The page you are looking for doesn\'t exist or has been moved.', 'listeners-blog' ); ?></p>
-			
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn-home-404">
+			<h1 class="error404-code-title"><?php esc_html_e('404', 'listeners-blog'); ?></h1>
+			<h2 class="error404-heading"><?php esc_html_e('Page Not Found', 'listeners-blog'); ?></h2>
+			<p class="error404-text"><?php esc_html_e('The page you are looking for doesn\'t exist or has been moved.', 'listeners-blog'); ?></p>
+
+			<a href="<?php echo esc_url(home_url('/')); ?>" class="btn-home-404">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left arrow-icon" aria-hidden="true">
 					<path d="m12 19-7-7 7-7"></path>
 					<path d="M19 12H5"></path>
 				</svg>
-				<span><?php esc_html_e( 'Return to Home', 'listeners-blog' ); ?></span>
+				<span><?php esc_html_e('Return to Home', 'listeners-blog'); ?></span>
 			</a>
 
 			<div class="error404-quote-box">
-				<p class="error404-quote-text"><?php esc_html_e( '"Sometimes the wrong path leads us to the right place. Every listener is here to help you find your way."', 'listeners-blog' ); ?></p>
+				<p class="error404-quote-text"><?php esc_html_e('"Sometimes the wrong path leads us to the right place. Every listener is here to help you find your way."', 'listeners-blog'); ?></p>
 			</div>
 
 			<div class="error404-app-download">
-				<p class="app-download-title"><?php esc_html_e( 'Get the Listeners App Download from', 'listeners-blog' ); ?></p>
+				<p class="app-download-title"><?php esc_html_e('Get the Listeners App Download from', 'listeners-blog'); ?></p>
 				<div class="app-download-badges">
 					<a href="<?php echo $site_url; ?>/download-application" target="_blank" rel="noopener noreferrer" class="app-badge-link">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/play-store-button.svg" alt="<?php esc_attr_e( 'Get it on Google Play', 'listeners-blog' ); ?>" class="app-badge-img" />
+						<img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/play-store-button.svg" alt="<?php esc_attr_e('Get it on Google Play', 'listeners-blog'); ?>" class="app-badge-img" />
 					</a>
 					<a href="<?php echo $site_url; ?>/download-application" target="_blank" rel="noopener noreferrer" class="app-badge-link">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/app-store-button.svg" alt="<?php esc_attr_e( 'Download on the App Store', 'listeners-blog' ); ?>" class="app-badge-img" />
+						<img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/app-store-button.svg" alt="<?php esc_attr_e('Download on the App Store', 'listeners-blog'); ?>" class="app-badge-img" />
 					</a>
 				</div>
 			</div>
