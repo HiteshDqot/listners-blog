@@ -328,7 +328,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ==========================================
     const shortOverlays = document.querySelectorAll('.short-overlay');
     shortOverlays.forEach(overlay => {
-        overlay.addEventListener('click', function() {
+        overlay.addEventListener('click', function () {
             const wrapper = overlay.parentElement;
             if (wrapper) {
                 const iframe = wrapper.querySelector('iframe');

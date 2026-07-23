@@ -545,7 +545,7 @@ function listeners_blog_youtube_short_metabox_callback($post)
 	<p class="description">
 		<?php _e('Enter the full YouTube Short URL, standard YouTube URL, or just the 11-digit video ID.', 'listeners-blog'); ?>
 	</p>
-<?php
+	<?php
 }
 
 /**
@@ -592,7 +592,8 @@ add_action('wp_head', 'listeners_blog_add_404_canonical', 2);
 add_action('wp_ajax_listeners_blog_load_more', 'listeners_blog_load_more_handler');
 add_action('wp_ajax_nopriv_listeners_blog_load_more', 'listeners_blog_load_more_handler');
 
-function listeners_blog_load_more_handler() {
+function listeners_blog_load_more_handler()
+{
 	// Verify parameters
 	$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
 	$query_vars = isset($_POST['query']) ? json_decode(stripslashes($_POST['query']), true) : array();
@@ -608,34 +609,34 @@ function listeners_blog_load_more_handler() {
 		while ($query->have_posts()) {
 			$query->the_post();
 			if ($card_style === 'post-card') {
-				?>
-				<article id="post-<?php the_ID(); ?>" <?php post_class( 'post-card' ); ?>>
+	?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class('post-card'); ?>>
 					<div class="post-card-thumbnail">
-						<?php if ( has_post_thumbnail() ) : ?>
+						<?php if (has_post_thumbnail()) : ?>
 							<a href="<?php the_permalink(); ?>">
-								<?php the_post_thumbnail( 'large' ); ?>
+								<?php the_post_thumbnail('large'); ?>
 							</a>
 						<?php else : ?>
 							<a href="<?php the_permalink(); ?>">
 								<div style="width: 100%; height: 100%; background: var(--gradient-primary); opacity: 0.15; position: absolute; top:0; left:0;"></div>
-								<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; font-size: 1.5rem; font-family: var(--font-heading);"><?php esc_html_e( 'LISTEN', 'listeners-blog' ); ?></div>
+								<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; font-size: 1.5rem; font-family: var(--font-heading);"><?php esc_html_e('LISTEN', 'listeners-blog'); ?></div>
 							</a>
 						<?php endif; ?>
-						
+
 						<?php
 						$categories = get_the_category();
-						if ( ! empty( $categories ) ) :
-							?>
+						if (! empty($categories)) :
+						?>
 							<span class="post-badge">
-								<?php echo esc_html( $categories[0]->name ); ?>
+								<?php echo esc_html($categories[0]->name); ?>
 							</span>
 						<?php endif; ?>
 					</div>
 
 					<div class="post-card-content">
 						<div class="post-card-meta">
-							<span class="post-date"><?php echo esc_html( get_the_date() ); ?></span>
-							<span class="post-read-time"><?php echo esc_html( listeners_blog_reading_time() ); ?></span>
+							<span class="post-date"><?php echo esc_html(get_the_date()); ?></span>
+							<span class="post-read-time"><?php echo esc_html(listeners_blog_reading_time()); ?></span>
 						</div>
 
 						<h3 class="post-card-title">
@@ -648,16 +649,16 @@ function listeners_blog_load_more_handler() {
 
 						<div class="post-card-footer">
 							<div class="post-author">
-								<?php echo get_avatar( get_the_author_meta( 'ID' ), 28 ); ?>
+								<?php echo get_avatar(get_the_author_meta('ID'), 28); ?>
 								<span><?php the_author(); ?></span>
 							</div>
-							<a class="post-read-more" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read More', 'listeners-blog' ); ?></a>
+							<a class="post-read-more" href="<?php the_permalink(); ?>"><?php esc_html_e('Read More', 'listeners-blog'); ?></a>
 						</div>
 					</div>
 				</article>
-				<?php
+			<?php
 			} else {
-				?>
+			?>
 				<article id="post-<?php the_ID(); ?>" <?php post_class('listeners-card'); ?>>
 					<!-- Card Thumbnail & Category Badge -->
 					<div class="card-img-wrapper">
@@ -695,7 +696,7 @@ function listeners_blog_load_more_handler() {
 						<a href="<?php the_permalink(); ?>" class="card-readmore-link"><?php esc_html_e('READ MORE', 'listeners-blog'); ?></a>
 					</div>
 				</article>
-				<?php
+<?php
 			}
 		}
 		wp_reset_postdata();
