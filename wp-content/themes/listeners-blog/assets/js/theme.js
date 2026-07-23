@@ -4,7 +4,7 @@
  * Handling mobile menu toggles, animations, and other interactive elements.
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Mobile Navigation Toggle (Overlay & Sliding Drawer)
     const mobileToggle = document.querySelector('.header-mobile-toggle');
     const mobileOverlay = document.querySelector('.mobile-menu-overlay');
@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
             mobileDrawer.classList.remove('active');
             document.body.style.overflow = '';
             if (mobileToggle) mobileToggle.setAttribute('aria-expanded', 'false');
-            
+
             // Wait for slide-out transition to complete before hiding overlay
-            setTimeout(function() {
+            setTimeout(function () {
                 if (!mobileDrawer.classList.contains('active')) {
                     mobileOverlay.style.display = 'none';
                 }
@@ -39,21 +39,21 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (mobileToggle) {
-        mobileToggle.addEventListener('click', function(e) {
+        mobileToggle.addEventListener('click', function (e) {
             e.stopPropagation();
             openMobileMenu();
         });
     }
 
     if (mobileClose) {
-        mobileClose.addEventListener('click', function(e) {
+        mobileClose.addEventListener('click', function (e) {
             e.stopPropagation();
             closeMobileMenu();
         });
     }
 
     if (mobileOverlay) {
-        mobileOverlay.addEventListener('click', function(e) {
+        mobileOverlay.addEventListener('click', function (e) {
             if (e.target === mobileOverlay) {
                 closeMobileMenu();
             }
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Scroll header background behavior
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
         if (header) {
             if (window.scrollY > 50) {
                 header.style.backgroundColor = 'rgba(12, 12, 14, 0.98)';
@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');
             if (href === '#') return;
-            
+
             // Skip TOC links as they are handled separately with custom offset
             if (this.classList.contains('toc-link')) return;
 
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (detailBody && tocContainer && tocWidget) {
         // Find all H2 and H3 headings inside the blog post content
         const headings = detailBody.querySelectorAll('h2, h3');
-        
+
         // Only show Table of Contents if there are at least 2 headings
         if (headings.length < 2) {
             tocWidget.style.display = 'none';
@@ -196,13 +196,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Smooth scroll for TOC links with offset for sticky header
         tocList.querySelectorAll('.toc-link').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation(); // Avoid triggering general smooth scroll
-                
+
                 const targetId = this.getAttribute('href');
                 const targetElement = targetId.startsWith('#') ? document.getElementById(targetId.substring(1)) : document.querySelector(targetId);
-                
+
                 if (targetElement) {
                     const headerHeight = document.querySelector('.site-header')?.offsetHeight || 80;
                     const offsetPosition = targetElement.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
@@ -218,4 +218,129 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // ==========================================
+    // AJAX BLOG LOAD MORE
+    // ==========================================
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    if (loadMoreBtn) {
+        const postsContainer = document.querySelector(
+            '.home-posts-grid, .posts-loop-grid, .category-posts-grid, .tag-posts-grid, .search-posts-grid'
+        );
+
+        if (postsContainer) {
+            loadMoreBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                if (loadMoreBtn.classList.contains('loading')) {
+                    return;
+                }
+
+                // Add loading spinner span if it doesn't exist
+                let spinner = loadMoreBtn.querySelector('.btn-spinner');
+                if (!spinner) {
+                    spinner = document.createElement('span');
+                    spinner.className = 'btn-spinner';
+                    loadMoreBtn.insertBefore(spinner, loadMoreBtn.firstChild);
+                }
+
+                const currentPage = parseInt(loadMoreBtn.getAttribute('data-page'), 10);
+                const maxPages = parseInt(loadMoreBtn.getAttribute('data-max-pages'), 10);
+                const queryVars = loadMoreBtn.getAttribute('data-query');
+                const cardStyle = loadMoreBtn.getAttribute('data-card-style') || 'listeners-card';
+                const nextPage = currentPage + 1;
+
+                loadMoreBtn.classList.add('loading');
+
+                const formData = new FormData();
+                formData.append('action', 'listeners_blog_load_more');
+                formData.append('page', nextPage);
+                formData.append('query', queryVars);
+                formData.append('card_style', cardStyle);
+
+                // Use relative URL matching current origin to prevent CORS issues
+                let ajaxUrl = listeners_blog_ajax_object.ajax_url;
+                try {
+                    if (ajaxUrl.startsWith('http')) {
+                        const urlObj = new URL(ajaxUrl);
+                        ajaxUrl = window.location.origin + urlObj.pathname + urlObj.search;
+                    }
+                } catch (e) {
+                    console.error('Invalid AJAX URL:', e);
+                }
+
+                fetch(ajaxUrl, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.text();
+                    })
+                    .then(html => {
+                        const cleanHtml = html ? html.trim() : '';
+                        if (cleanHtml && cleanHtml !== '0' && cleanHtml.length > 0) {
+                            const tempDiv = document.createElement('div');
+                            tempDiv.innerHTML = html;
+
+                            while (tempDiv.firstChild) {
+                                if (tempDiv.firstChild.nodeType === 1) {
+                                    tempDiv.firstChild.style.opacity = '0';
+                                    tempDiv.firstChild.style.transition = 'opacity 0.6s ease';
+                                    postsContainer.appendChild(tempDiv.firstChild);
+
+                                    setTimeout((el) => {
+                                        el.style.opacity = '1';
+                                    }, 50, postsContainer.lastElementChild);
+                                } else {
+                                    tempDiv.removeChild(tempDiv.firstChild);
+                                }
+                            }
+
+                            loadMoreBtn.setAttribute('data-page', nextPage);
+
+                            if (nextPage >= maxPages) {
+                                const container = loadMoreBtn.closest('.load-more-container');
+                                if (container) {
+                                    container.style.display = 'none';
+                                } else {
+                                    loadMoreBtn.style.display = 'none';
+                                }
+                            }
+                        } else {
+                            loadMoreBtn.style.display = 'none';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('AJAX Load More error:', error);
+                    })
+                    .finally(() => {
+                        loadMoreBtn.classList.remove('loading');
+                    });
+            });
+        }
+    }
+
+    // ==========================================
+    // YOUTUBE SHORTS OVERLAY AUTOPLAY
+    // ==========================================
+    const shortOverlays = document.querySelectorAll('.short-overlay');
+    shortOverlays.forEach(overlay => {
+        overlay.addEventListener('click', function() {
+            const wrapper = overlay.parentElement;
+            if (wrapper) {
+                const iframe = wrapper.querySelector('iframe');
+                const videoId = overlay.getAttribute('data-video-id');
+                if (iframe && videoId) {
+                    iframe.src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&mute=0';
+                    overlay.style.opacity = '0';
+                    setTimeout(() => {
+                        overlay.style.display = 'none';
+                    }, 300);
+                }
+            }
+        });
+    });
 });

@@ -151,6 +151,11 @@ function listeners_blog_scripts()
 	// Theme JS
 	wp_enqueue_script('listeners-blog-theme-js', get_template_directory_uri() . '/assets/js/theme.js', array('jquery'), wp_get_theme()->get('Version'), true);
 
+	// Localize script for AJAX Load More
+	wp_localize_script('listeners-blog-theme-js', 'listeners_blog_ajax_object', array(
+		'ajax_url' => admin_url('admin-ajax.php')
+	));
+
 	if (is_singular() && comments_open() && get_option('thread_comments')) {
 		wp_enqueue_script('comment-reply');
 	}
@@ -580,3 +585,120 @@ function listeners_blog_add_404_canonical()
 	}
 }
 add_action('wp_head', 'listeners_blog_add_404_canonical', 2);
+
+/**
+ * AJAX Load More Posts handler
+ */
+add_action('wp_ajax_listeners_blog_load_more', 'listeners_blog_load_more_handler');
+add_action('wp_ajax_nopriv_listeners_blog_load_more', 'listeners_blog_load_more_handler');
+
+function listeners_blog_load_more_handler() {
+	// Verify parameters
+	$page = isset($_POST['page']) ? intval($_POST['page']) : 1;
+	$query_vars = isset($_POST['query']) ? json_decode(stripslashes($_POST['query']), true) : array();
+	$card_style = isset($_POST['card_style']) ? sanitize_text_field($_POST['card_style']) : 'listeners-card';
+
+	$query_vars['paged'] = $page;
+	$query_vars['post_status'] = 'publish';
+
+	// Run Query
+	$query = new WP_Query($query_vars);
+
+	if ($query->have_posts()) {
+		while ($query->have_posts()) {
+			$query->the_post();
+			if ($card_style === 'post-card') {
+				?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class( 'post-card' ); ?>>
+					<div class="post-card-thumbnail">
+						<?php if ( has_post_thumbnail() ) : ?>
+							<a href="<?php the_permalink(); ?>">
+								<?php the_post_thumbnail( 'large' ); ?>
+							</a>
+						<?php else : ?>
+							<a href="<?php the_permalink(); ?>">
+								<div style="width: 100%; height: 100%; background: var(--gradient-primary); opacity: 0.15; position: absolute; top:0; left:0;"></div>
+								<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; font-size: 1.5rem; font-family: var(--font-heading);"><?php esc_html_e( 'LISTEN', 'listeners-blog' ); ?></div>
+							</a>
+						<?php endif; ?>
+						
+						<?php
+						$categories = get_the_category();
+						if ( ! empty( $categories ) ) :
+							?>
+							<span class="post-badge">
+								<?php echo esc_html( $categories[0]->name ); ?>
+							</span>
+						<?php endif; ?>
+					</div>
+
+					<div class="post-card-content">
+						<div class="post-card-meta">
+							<span class="post-date"><?php echo esc_html( get_the_date() ); ?></span>
+							<span class="post-read-time"><?php echo esc_html( listeners_blog_reading_time() ); ?></span>
+						</div>
+
+						<h3 class="post-card-title">
+							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						</h3>
+
+						<div class="post-card-excerpt">
+							<?php the_excerpt(); ?>
+						</div>
+
+						<div class="post-card-footer">
+							<div class="post-author">
+								<?php echo get_avatar( get_the_author_meta( 'ID' ), 28 ); ?>
+								<span><?php the_author(); ?></span>
+							</div>
+							<a class="post-read-more" href="<?php the_permalink(); ?>"><?php esc_html_e( 'Read More', 'listeners-blog' ); ?></a>
+						</div>
+					</div>
+				</article>
+				<?php
+			} else {
+				?>
+				<article id="post-<?php the_ID(); ?>" <?php post_class('listeners-card'); ?>>
+					<!-- Card Thumbnail & Category Badge -->
+					<div class="card-img-wrapper">
+						<a href="<?php the_permalink(); ?>">
+							<?php if (has_post_thumbnail()) : ?>
+								<?php the_post_thumbnail('large'); ?>
+							<?php else : ?>
+								<!-- Decorative placeholder gradient matching theme -->
+								<div style="width: 100%; height: 100%; background: var(--gradient-accent); opacity: 0.15; position: absolute; top:0; left:0;"></div>
+								<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-weight: 700; font-size: 1.5rem; font-family: var(--font-heading);"><?php esc_html_e('LISTENERS', 'listeners-blog'); ?></div>
+							<?php endif; ?>
+						</a>
+
+						<!-- Badge -->
+						<?php
+						$categories = get_the_category();
+						if (! empty($categories)) :
+						?>
+							<a href="<?php echo esc_url(get_category_link($categories[0]->term_id)); ?>" class="card-category-badge badge-<?php echo esc_attr($categories[0]->slug); ?>">
+								<?php echo esc_html($categories[0]->name); ?>
+							</a>
+						<?php endif; ?>
+					</div>
+
+					<!-- Card Body -->
+					<div class="card-body">
+						<h2 class="card-title">
+							<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+						</h2>
+
+						<div class="card-excerpt">
+							<?php the_excerpt(); ?>
+						</div>
+
+						<a href="<?php the_permalink(); ?>" class="card-readmore-link"><?php esc_html_e('READ MORE', 'listeners-blog'); ?></a>
+					</div>
+				</article>
+				<?php
+			}
+		}
+		wp_reset_postdata();
+	}
+	wp_die();
+}

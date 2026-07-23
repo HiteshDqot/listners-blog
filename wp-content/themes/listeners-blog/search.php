@@ -101,18 +101,21 @@ $total_results = $wp_query->found_posts;
 						?>
 					</div>
 
-					<!-- Pagination -->
-					<div class="pagination">
-						<?php
-						the_posts_pagination(
-							array(
-								'mid_size'  => 2,
-								'prev_text' => sprintf( '<span>%s</span>', esc_html__( 'Prev', 'listeners-blog' ) ),
-								'next_text' => sprintf( '<span>%s</span>', esc_html__( 'Next', 'listeners-blog' ) ),
-							)
-						);
-						?>
-					</div>
+					<!-- Load More Button -->
+					<?php
+					global $wp_query;
+					if ($wp_query->max_num_pages > 1) :
+					?>
+						<div class="load-more-container">
+							<button id="load-more-btn" class="load-more-btn"
+									data-page="1"
+									data-max-pages="<?php echo esc_attr($wp_query->max_num_pages); ?>"
+									data-card-style="listeners-card"
+									data-query="<?php echo esc_attr(json_encode($wp_query->query_vars)); ?>">
+								<span><?php esc_html_e('Load More', 'listeners-blog'); ?></span>
+							</button>
+						</div>
+					<?php endif; ?>
 
 				<?php else : ?>
 					<div class="no-results-card" style="text-align: center; padding: 5rem 2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--border-radius-card); margin-bottom: 2rem; box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);">

@@ -3261,3 +3261,75 @@ img {
 }
 
 
+/* ===== Blog Load More Button Styling ===== */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4rem auto;
+    width: 100%;
+    clear: both;
+}
+
+.load-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FFFFFF;
+    padding: 0.85rem 2.5rem;
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 9999px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.load-more-btn:hover {
+    border-color: transparent;
+    background: var(--gradient-accent);
+    box-shadow: 0 8px 25px rgba(138, 43, 226, 0.4), 0 4px 15px rgba(255, 77, 141, 0.3);
+    transform: translateY(-2px);
+}
+
+.load-more-btn:active {
+    transform: translateY(1px);
+}
+
+/* Spinner styling */
+.load-more-btn .btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #FFFFFF;
+    border-radius: 50%;
+    animation: load-more-spin 0.8s linear infinite;
+    display: inline-block;
+}
+
+@keyframes load-more-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Loading state adjustments */
+.load-more-btn.loading {
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+
+
