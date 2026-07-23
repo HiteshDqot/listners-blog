@@ -90,14 +90,30 @@ $siteUrl = "https://www.listenersconnect.com";
 			<div>
 				<h3 class="footer-title"><?php esc_html_e('Explore Services', 'listeners-blog'); ?></h3>
 				<ul class="footer-links-list">
-					<li><a href="<?php echo $siteUrl ?>/experts/dating"><?php esc_html_e('Dating', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/experts/relationship"><?php esc_html_e('Relationship', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/experts/breakup-recovery"><?php esc_html_e('Breakup Recovery', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/experts/pre-marital"><?php esc_html_e('Pre-Marital', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/experts/marriage-guidance"><?php esc_html_e('Marriage Guidance', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/experts/divorce-healing"><?php esc_html_e('Divorce Healing', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/experts/anxiety-support"><?php esc_html_e('Anxiety Support', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/experts/spiritual-healing"><?php esc_html_e('Spiritual Healing', 'listeners-blog'); ?></a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/dating">
+							<h4><?php esc_html_e('Dating', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/relationship">
+							<h4><?php esc_html_e('Relationship', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/breakup-recovery">
+							<h4><?php esc_html_e('Breakup Recovery', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/pre-marital">
+							<h4><?php esc_html_e('Pre-Marital', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/marriage-guidance">
+							<h4><?php esc_html_e('Marriage Guidance', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/divorce-healing">
+							<h4><?php esc_html_e('Divorce Healing', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/anxiety-support">
+							<h4><?php esc_html_e('Anxiety Support', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/experts/spiritual-healing">
+							<h4><?php esc_html_e('Spiritual Healing', 'listeners-blog'); ?></h4>
+						</a></li>
 				</ul>
 			</div>
 
@@ -105,21 +121,37 @@ $siteUrl = "https://www.listenersconnect.com";
 			<div>
 				<h3 class="footer-title"><?php esc_html_e('Useful Links', 'listeners-blog'); ?></h3>
 				<ul class="footer-links-list">
-					<li><a href="<?php echo $siteUrl ?>/contact"><?php esc_html_e('Contact Us', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/about"><?php esc_html_e('About Us', 'listeners-blog'); ?></a></li>
+					<li><a href="<?php echo $siteUrl ?>/contact">
+							<h4><?php esc_html_e('Contact Us', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/about">
+							<h4><?php esc_html_e('About Us', 'listeners-blog'); ?></h4>
+						</a></li>
 					<li>
 						<a href="<?php echo $siteUrl ?>/become-a-partner"><?php esc_html_e('Join as', 'listeners-blog'); ?>&nbsp;
 							<span class="expert-link" style="color: #FF4D8D; display: inline-block;">
-								<?php esc_html_e('a Listener', 'become-a-partner'); ?>
+								<h4><?php esc_html_e('a Listener', 'become-a-partner'); ?></h4>
 							</span>
 						</a>
 					</li>
-					<li><a href="<?php echo $siteUrl ?>/safety"><?php esc_html_e('Safety Guidelines', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/register-guidelines"><?php esc_html_e('Register Guidelines', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/community"><?php esc_html_e('Community Guidelines', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/faqs"><?php esc_html_e('FAQs', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/terms"><?php esc_html_e('Terms & Conditions', 'listeners-blog'); ?></a></li>
-					<li><a href="<?php echo $siteUrl ?>/privacy"><?php esc_html_e('Privacy Policy', 'listeners-blog'); ?></a></li>
+					<li><a href="<?php echo $siteUrl ?>/safety">
+							<h4><?php esc_html_e('Safety Guidelines', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/register-guidelines">
+							<h4><?php esc_html_e('Register Guidelines', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/community">
+							<h4><?php esc_html_e('Community Guidelines', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/faqs">
+							<h4><?php esc_html_e('FAQs', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/terms">
+							<h4><?php esc_html_e('Terms & Conditions', 'listeners-blog'); ?></h4>
+						</a></li>
+					<li><a href="<?php echo $siteUrl ?>/privacy">
+							<h4><?php esc_html_e('Privacy Policy', 'listeners-blog'); ?></h4>
+						</a></li>
 				</ul>
 			</div>
 
