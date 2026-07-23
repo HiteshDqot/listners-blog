@@ -1420,9 +1420,10 @@ img {
 }
 
 /* Triangle Bullet points for footer lists */
-.footer-links-list li a {
+.footer-links-list li a h4 {
   display: inline-flex;
   align-items: center;
+  color: var(--text-secondary);
 }
 
 .footer-links-list li a::before {
