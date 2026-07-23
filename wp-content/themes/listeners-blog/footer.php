@@ -88,7 +88,7 @@ $siteUrl = "https://www.listenersconnect.com";
 
 			<!-- Column 2: Explore Services -->
 			<div>
-				<h4 class="footer-title"><?php esc_html_e('Explore Services', 'listeners-blog'); ?></h4>
+				<h3 class="footer-title"><?php esc_html_e('Explore Services', 'listeners-blog'); ?></h3>
 				<ul class="footer-links-list">
 					<li><a href="<?php echo $siteUrl ?>/experts/dating"><?php esc_html_e('Dating', 'listeners-blog'); ?></a></li>
 					<li><a href="<?php echo $siteUrl ?>/experts/relationship"><?php esc_html_e('Relationship', 'listeners-blog'); ?></a></li>
@@ -103,7 +103,7 @@ $siteUrl = "https://www.listenersconnect.com";
 
 			<!-- Column 3: Useful Links -->
 			<div>
-				<h4 class="footer-title"><?php esc_html_e('Useful Links', 'listeners-blog'); ?></h4>
+				<h3 class="footer-title"><?php esc_html_e('Useful Links', 'listeners-blog'); ?></h3>
 				<ul class="footer-links-list">
 					<li><a href="<?php echo $siteUrl ?>/contact"><?php esc_html_e('Contact Us', 'listeners-blog'); ?></a></li>
 					<li><a href="<?php echo $siteUrl ?>/about"><?php esc_html_e('About Us', 'listeners-blog'); ?></a></li>
@@ -125,7 +125,7 @@ $siteUrl = "https://www.listenersconnect.com";
 
 			<!-- Column 4: App Badges (Official SVG Badges side-by-side) -->
 			<div>
-				<h4 class="footer-title"><?php esc_html_e('Get Download Our App', 'listeners-blog'); ?></h4>
+				<h3 class="footer-title"><?php esc_html_e('Get Download Our App', 'listeners-blog'); ?></h3>
 				<div class="footer-app-badges">
 					<a href="<?php echo $siteUrl ?>/download-application" target="_blank" rel="noopener noreferrer" class="footer-app-link">
 						<img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/play-store-button.svg" alt="Get it on Google Play" />
