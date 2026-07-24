@@ -248,7 +248,15 @@ if (!empty($shorts_to_display)) :
 							referrerpolicy="strict-origin-when-cross-origin"
 							allowfullscreen>
 						</iframe>
-						<div class="short-overlay" data-video-id="<?php echo esc_attr($short['video_id']); ?>"></div>
+						<div class="short-ai-blocker"></div>
+						<div class="short-overlay" data-video-id="<?php echo esc_attr($short['video_id']); ?>" style="background-image: url('https://img.youtube.com/vi/<?php echo esc_attr($short['video_id']); ?>/hqdefault.jpg');">
+							<div class="short-play-btn-wrapper"></div>
+							<div class="short-overlay-title-wrapper">
+								<span class="short-overlay-badge"><?php esc_html_e('Short', 'listeners-blog'); ?></span>
+								<h3 class="short-overlay-title"><?php //echo esc_html($short['title']); 
+																?></h3>
+							</div>
+						</div>
 					</div>
 				<?php endforeach; ?>
 			</div>
