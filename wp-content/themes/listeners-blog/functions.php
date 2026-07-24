@@ -413,6 +413,22 @@ function listeners_blog_custom_template_redirect()
 }
 
 /**
+ * Disable standard paginated pages (e.g., /page/2/, /page/3/) and return a 404 Not Found response.
+ */
+add_action('template_redirect', 'listeners_blog_disable_paginated_pages');
+function listeners_blog_disable_paginated_pages()
+{
+	if (!is_admin() && (is_paged() || get_query_var('page') > 1)) {
+		global $wp_query;
+		$wp_query->set_404();
+		status_header(404);
+		nocache_headers();
+		include get_query_template('404');
+		exit;
+	}
+}
+
+/**
  * Programmatically disable Yoast SEO's built-in XML sitemaps to prevent conflicts
  * with our custom sitemap and robots.txt.
  */
