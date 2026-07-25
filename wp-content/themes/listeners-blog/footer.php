@@ -201,18 +201,29 @@ $siteUrl = "https://www.listenersconnect.com";
 </div><!-- #page -->
 
 <script>
-	jQuery(document).ready(function($) {
+	document.addEventListener('DOMContentLoaded', function() {
+		var expertLinks = document.querySelectorAll('.expert-link h4');
+		if (expertLinks.length === 0) {
+			expertLinks = document.querySelectorAll('.expert-link');
+		}
+		if (expertLinks.length === 0) return;
+		
 		var showListener = false;
 		setInterval(function() {
-			$('.expert-link').fadeOut(400, function() {
-				if (showListener) {
-					$(this).text('a Listener');
-				} else {
-					$(this).text('an Expert');
-				}
-				showListener = !showListener;
-				$(this).fadeIn(400);
+			expertLinks.forEach(function(el) {
+				el.style.transition = 'opacity 400ms';
+				el.style.opacity = '0';
+				
+				setTimeout(function() {
+					if (showListener) {
+						el.textContent = 'a Listener';
+					} else {
+						el.textContent = 'an Expert';
+					}
+					el.style.opacity = '1';
+				}, 400);
 			});
+			showListener = !showListener;
 		}, 3000);
 	});
 </script>

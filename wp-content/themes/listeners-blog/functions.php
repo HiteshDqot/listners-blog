@@ -149,7 +149,7 @@ function listeners_blog_scripts()
 	wp_enqueue_style('listeners-blog-style', get_stylesheet_uri(), array('listeners-blog-fonts'), filemtime(get_template_directory() . '/style.css'));
 
 	// Theme JS
-	wp_enqueue_script('listeners-blog-theme-js', get_template_directory_uri() . '/assets/js/theme.js', array('jquery'), wp_get_theme()->get('Version'), true);
+	wp_enqueue_script('listeners-blog-theme-js', get_template_directory_uri() . '/assets/js/theme.js', array(), wp_get_theme()->get('Version'), true);
 
 	// Localize script for AJAX Load More
 	wp_localize_script('listeners-blog-theme-js', 'listeners_blog_ajax_object', array(
@@ -719,3 +719,63 @@ function listeners_blog_load_more_handler()
 	}
 	wp_die();
 }
+
+/**
+ * Defer non-essential scripts for performance improvement.
+ */
+add_filter('script_loader_tag', 'listeners_blog_defer_scripts', 10, 3);
+function listeners_blog_defer_scripts($tag, $handle, $src)
+{
+	if (is_admin()) {
+		return $tag;
+	}
+	if (false === strpos($tag, 'defer') && false === strpos($tag, 'async')) {
+		$tag = str_replace(' src', ' defer src', $tag);
+	}
+	return $tag;
+}
+
+/**
+ * Defer non-critical stylesheets (Google Fonts).
+ */
+add_filter('style_loader_tag', 'listeners_blog_defer_stylesheets', 10, 4);
+function listeners_blog_defer_stylesheets($tag, $handle, $href, $media)
+{
+	if (is_admin()) {
+		return $tag;
+	}
+	if ('listeners-blog-fonts' === $handle) {
+		return '<link rel="stylesheet" id="' . esc_attr($handle) . '" href="' . esc_url($href) . '" media="print" onload="this.media=\'all\'">' . "\n" . '<noscript>' . $tag . '</noscript>';
+	}
+	return $tag;
+}
+
+/**
+ * Dequeue block library CSS on frontend listing pages to reduce unused CSS.
+ */
+add_action('wp_enqueue_scripts', 'listeners_blog_optimize_assets', 100);
+function listeners_blog_optimize_assets()
+{
+	if (is_home() || is_archive() || is_search()) {
+		wp_dequeue_style('wp-block-library');
+		wp_dequeue_style('wp-block-library-theme');
+		wp_dequeue_style('classic-theme-styles');
+	}
+}
+
+/**
+ * Optimize LCP candidate image: eager load and high fetchpriority for the first post thumbnail on list pages.
+ */
+add_filter('wp_get_attachment_image_attributes', 'listeners_blog_lcp_image_attributes', 10, 3);
+function listeners_blog_lcp_image_attributes($attr, $attachment, $size)
+{
+	global $wp_query;
+	if (!is_admin() && $wp_query->is_main_query() && (is_home() || is_archive() || is_search())) {
+		if ($wp_query->current_post === 0) {
+			$attr['loading'] = 'eager';
+			$attr['fetchpriority'] = 'high';
+		}
+	}
+	return $attr;
+}
+
