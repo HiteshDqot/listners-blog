@@ -207,13 +207,13 @@ $siteUrl = "https://www.listenersconnect.com";
 			expertLinks = document.querySelectorAll('.expert-link');
 		}
 		if (expertLinks.length === 0) return;
-		
+
 		var showListener = false;
 		setInterval(function() {
 			expertLinks.forEach(function(el) {
 				el.style.transition = 'opacity 400ms';
 				el.style.opacity = '0';
-				
+
 				setTimeout(function() {
 					if (showListener) {
 						el.textContent = 'a Listener';
